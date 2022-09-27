@@ -1,31 +1,35 @@
 package com.sparta.main.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class CentreHolder {
 
-    static ArrayList<TrainingCentre> centres = new ArrayList<>();
+    private static CentreHolder instance;
+    static List<TrainingCentre> centres = new ArrayList<>();
+
+    public static CentreHolder getInstance() {
+        if (instance == null)
+            instance = new CentreHolder();
+        return instance;
+    }
 
     public void assignTrainees(TrainingCentre trainingCentre) {
-        // TrainingCentre tc = class.findAvalaibleCentre();
+        // TrainingCentre tc = class.findAvailableCentre();
         // tc.addTrainee(WaitingList.queue.remove());
 
         if (trainingCentre != null) {
             WaitingList waitingList = WaitingList.getInstance();
-            trainingCentre.newTrainee.add(waitingList.getWaitingList().remove());
+            trainingCentre.newTrainee.add(waitingList.getFirstInQueue());
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public static String getCentres() {
-        return centres.toString();
-    }
-    
 
-    public static void addCentre(TrainingCentre trainingCentre) {
-        centres.add(trainingCentre);
-    }
+
+    public static List<TrainingCentre> getCentres() { return centres; }
+
+    public static void addCentre(TrainingCentre trainingCentre) { centres.add(trainingCentre); }
 
 }
