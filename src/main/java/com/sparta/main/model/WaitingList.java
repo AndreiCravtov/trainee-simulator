@@ -6,35 +6,29 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 public class WaitingList {
 
-    private BlockingQueue<Trainee> waitingList;
-    private static WaitingList trainingWaitingList;
-
-    private WaitingList() {
-        this.waitingList = new PriorityBlockingQueue<>();
-    }
+    private static WaitingList instance;
 
     public static WaitingList getInstance() {
-        if (trainingWaitingList == null) {
-            trainingWaitingList = new WaitingList();
-        }
-        return trainingWaitingList;
+        if (instance == null)
+            instance = new WaitingList();
+        return instance;
     }
 
+    private final BlockingQueue<Trainee> waitingList;
+
+    private WaitingList() { waitingList = new PriorityBlockingQueue<>(); }
+
     public BlockingQueue<Trainee> getWaitingList() {
-        return this.waitingList;
+        return waitingList;
     }
 
     public void addTrainee(Trainee trainee) {
-        if (waitingList == null) {
-            getInstance();
-        }
         waitingList.add(trainee);
     }
 
     public Trainee getFirstInQueue() {
-        if (waitingList == null || waitingList.size() == 0) {
+        if (waitingList.size() == 0)
             throw new NoSuchElementException("No trainees in waiting list");
-        }
         return waitingList.poll();
     }
 
