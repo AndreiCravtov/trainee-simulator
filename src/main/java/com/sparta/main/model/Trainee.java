@@ -2,18 +2,39 @@ package com.sparta.main.model;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Random;
+
 public class Trainee {
-    private final int traineeId;
-    private final Course course;
 
-    public int getId() { return traineeId; }
+    private int traineeId;
+    private Course course;
 
-    public Course getCourse() { return course; }
+    public static Trainee createTrainee(){
+        Random rand = new Random();
+        int x;
+        do {
+            x = rand.nextInt(100000,1000000);
+        } while(x<555555); // Check that an employee with ID doesnt already exist
 
-    public Trainee (int id, @NotNull Course course) {
-        this.traineeId = id;
+
+
+        return new Trainee(x,Course.C_SHARP_DEVELOPER); // make this give random course
+    }
+
+    public Trainee(int traineeId, @NotNull Course course) {
+        this.traineeId = traineeId;
         this.course = course;
     }
+
+    public int getId() {
+        return traineeId;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+
 
     /**
      * This method serializes the trainee object.
