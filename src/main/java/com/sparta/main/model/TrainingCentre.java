@@ -11,7 +11,9 @@ public class TrainingCentre {
     }
 
     public void addTrainee(Trainee trainee){
-        newTrainee.add(trainee);
+        if (newTrainee.size() < 100) {
+            newTrainee.add(trainee);
+        }
     }
 
     public int getCenterID() {
