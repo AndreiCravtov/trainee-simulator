@@ -10,4 +10,7 @@ public enum Course {
     public String getName() { return name; }
 
     private Course(String name) { this.name = name; }
+
+    @Override
+    public String toString() { return name; }
 }

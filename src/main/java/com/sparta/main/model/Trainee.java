@@ -5,26 +5,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class Trainee {
-
-    private int traineeId;
-    private Course course;
-
     public static Trainee createTrainee(){
         Random rand = new Random();
         int x;
         do {
             x = rand.nextInt(100000,1000000);
-        } while(x<555555); // Check that an employee with ID doesnt already exist
+        } while(x<555555); // Check that an employee with ID doesn't already exist
 
-
-
-        return new Trainee(x,Course.C_SHARP_DEVELOPER); // make this give random course
+        Course[] courses = Course.values();
+        return new Trainee(x, courses[rand.nextInt(0, courses.length)]); // make this give random course
     }
 
-    public Trainee(int traineeId, @NotNull Course course) {
-        this.traineeId = traineeId;
-        this.course = course;
-    }
+    private int traineeId;
+    private Course course;
 
     public int getId() {
         return traineeId;
@@ -34,7 +27,10 @@ public class Trainee {
         return course;
     }
 
-
+    public Trainee(int traineeId, @NotNull Course course) {
+        this.traineeId = traineeId;
+        this.course = course;
+    }
 
     /**
      * This method serializes the trainee object.
