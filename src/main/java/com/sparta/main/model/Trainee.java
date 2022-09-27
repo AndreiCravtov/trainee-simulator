@@ -16,8 +16,8 @@ public class Trainee {
         return new Trainee(x, courses[rand.nextInt(0, courses.length)]);
     }
 
-    private int traineeId;
-    private Course course;
+    private final int traineeId;
+    private final Course course;
 
     public int getId() {
         return traineeId;

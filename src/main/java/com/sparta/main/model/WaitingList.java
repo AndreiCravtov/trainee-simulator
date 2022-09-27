@@ -1,45 +1,33 @@
 package com.sparta.main.model;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class WaitingList {
 
-    private BlockingQueue<Trainee> waitingList;
-    private static WaitingList trainingWaitingList;
-
-    private WaitingList() {
-        this.waitingList = new PriorityBlockingQueue<>();
-    }
+    private static WaitingList instance;
 
     public static WaitingList getInstance() {
-        if (trainingWaitingList == null) {
-            trainingWaitingList = new WaitingList();
-        }
-        return trainingWaitingList;
+        if (instance == null)
+            instance = new WaitingList();
+        return instance;
     }
 
-    public BlockingQueue<Trainee> getWaitingList() {
-        return this.waitingList;
-    }
+    private final BlockingQueue<Trainee> waitingList;
 
-    public void addTrainee(Trainee trainee) {
-        if (waitingList == null) {
-            getInstance();
-        }
-        waitingList.add(trainee);
-    }
+    private WaitingList() { waitingList = new PriorityBlockingQueue<>(); }
 
-    public Trainee getFirstInQueue() {
-        if (waitingList == null || waitingList.size() == 0) {
-            throw new NoSuchElementException("No trainees in waiting list");
-        }
-        return waitingList.poll();
-    }
+    public BlockingQueue<Trainee> getWaitingList() { return waitingList; }
 
-    public int sizeOfWaitingList() {
-        return waitingList.size();
-    }
+    public boolean addTrainee(Trainee trainee) { return waitingList.offer(trainee); }
+
+    /**
+     * Returns the first trainee on the waiting list.
+     * @return returns the first trainee on the waiting list
+     * or {@code null} if the list is empty
+     */
+    public Trainee getFirstInQueue() { return waitingList.poll(); }
+
+    public int sizeOfWaitingList() { return waitingList.size(); }
 
 }
