@@ -6,7 +6,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 public class WaitingList {
 
-    private BlockingQueue<Trainee> waitingList;
+    private final BlockingQueue<Trainee> waitingList;
     private static WaitingList trainingWaitingList;
 
     private WaitingList() {
@@ -25,15 +25,12 @@ public class WaitingList {
     }
 
     public void addTrainee(Trainee trainee) {
-        if (waitingList == null) {
-            getInstance();
-        }
         waitingList.add(trainee);
     }
 
     public Trainee getFirstInQueue() {
         if (waitingList == null || waitingList.size() == 0) {
-            throw new NoSuchElementException("No trainees in waiting list");
+            return null;
         }
         return waitingList.poll();
     }
