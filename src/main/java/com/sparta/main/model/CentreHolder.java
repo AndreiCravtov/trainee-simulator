@@ -1,11 +1,11 @@
 package com.sparta.main.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class CentreHolder {
 
-    static ArrayList<TrainingCentre> centres = new ArrayList<>();
+    static List<TrainingCentre> centres = new ArrayList<>();
 
     public void assignTrainees(TrainingCentre trainingCentre) {
         // TrainingCentre tc = class.findAvalaibleCentre();
@@ -19,14 +19,8 @@ public class CentreHolder {
         }
     }
 
-    public static String getCentres() {
-        return centres.toString();
-    }
+    public static List<TrainingCentre> getCentres() { return centres; }
 
-
-
-    public static void addCentre(TrainingCentre trainingCentre) {
-        centres.add(trainingCentre);
-    }
+    public static void addCentre(TrainingCentre trainingCentre) { centres.add(trainingCentre); }
 
 }
