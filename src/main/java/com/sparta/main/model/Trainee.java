@@ -1,4 +1,4 @@
-package com.sparta.Model;
+package com.sparta.main.model;
 
 public class Trainee {
 
