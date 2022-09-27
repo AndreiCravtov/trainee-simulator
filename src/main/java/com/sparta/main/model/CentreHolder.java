@@ -18,8 +18,9 @@ public class CentreHolder {
         return centres;
     }
 
+
     public static void addCentre(TrainingCentre trainingCentre) {
         centres.add(trainingCentre);
     }
-    
+
 }
