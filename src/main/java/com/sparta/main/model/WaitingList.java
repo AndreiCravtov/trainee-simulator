@@ -16,10 +16,10 @@ public class WaitingList {
 
     private final BlockingQueue<Trainee> waitingList;
 
-    private WaitingList() { this.waitingList = new PriorityBlockingQueue<>(); }
+    private WaitingList() { waitingList = new PriorityBlockingQueue<>(); }
 
     public BlockingQueue<Trainee> getWaitingList() {
-        return this.waitingList;
+        return waitingList;
     }
 
     public void addTrainee(Trainee trainee) {
