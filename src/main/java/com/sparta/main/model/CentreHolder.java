@@ -1,6 +1,7 @@
 package com.sparta.main.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CentreHolder {
 
@@ -10,13 +11,18 @@ public class CentreHolder {
         // TrainingCentre tc = class.findAvalaibleCentre();
         // tc.addTrainee(WaitingList.queue.remove());
 
-        WaitingList waitingList = WaitingList.getInstance();
-        trainingCentre.addTrainee(waitingList.getWaitingList().remove());
+        if (trainingCentre != null) {
+            WaitingList waitingList = WaitingList.getInstance();
+            trainingCentre.newTrainee.add(waitingList.getWaitingList().remove());
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public static ArrayList<TrainingCentre> getCentres() {
-        return centres;
+    public static String getCentres() {
+        return centres.toString();
     }
+
 
 
     public static void addCentre(TrainingCentre trainingCentre) {
