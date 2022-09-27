@@ -1,4 +1,4 @@
 package com.sparta.Model;
 
-public class WaitingList {
+public class Trainee {
 }

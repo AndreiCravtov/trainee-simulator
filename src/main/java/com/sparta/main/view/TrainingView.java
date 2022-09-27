@@ -1,4 +1,4 @@
-package com.sparta.View;
+package com.sparta.main.view;
 
 public class TrainingView {
 }
