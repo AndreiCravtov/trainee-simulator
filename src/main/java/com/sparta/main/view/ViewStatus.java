@@ -1,11 +1,12 @@
 package com.sparta.main.view;
 
+import com.sparta.main.model.CentreHolder;
+
 public class ViewStatus {
     public static void viewStatus(){
-        System.out.println("Would you like to print the status?");
 
         if (TrainingView.getValidBool("Would you like to print the status?")){
-            System.out.println();
+            System.out.println("Centres in use:  "+ CentreHolder.getCentres());
         }
     }
 
