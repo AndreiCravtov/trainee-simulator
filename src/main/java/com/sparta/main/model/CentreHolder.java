@@ -2,7 +2,6 @@ package com.sparta.main.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 public class CentreHolder {
 
@@ -18,10 +17,6 @@ public class CentreHolder {
         } else {
             throw new IllegalArgumentException();
         }
-    }
-
-    public static String getCentres() {
-        return centres.toString();
     }
 
     public static List<TrainingCentre> getCentres() { return centres; }
