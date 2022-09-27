@@ -22,8 +22,7 @@ public class CentreHolder {
     public static String getCentres() {
         return centres.toString();
     }
-
-
+    
 
     public static void addCentre(TrainingCentre trainingCentre) {
         centres.add(trainingCentre);
