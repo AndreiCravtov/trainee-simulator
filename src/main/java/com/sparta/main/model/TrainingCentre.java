@@ -1,10 +1,11 @@
 package com.sparta.main.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingCentre {
     private final int centerID;
-    ArrayList<Trainee> newTrainee = new ArrayList<>();
+    List<Trainee> newTrainee = new ArrayList<>();
 
     public TrainingCentre(int centerID) {
         this.centerID = centerID;
@@ -20,7 +21,7 @@ public class TrainingCentre {
         return centerID;
     }
 
-    public ArrayList<Trainee> getTrainee() {
+    public List<Trainee> getTrainee() {
         return newTrainee;
     }
 }

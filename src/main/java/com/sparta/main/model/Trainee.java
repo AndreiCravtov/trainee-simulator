@@ -19,13 +19,9 @@ public class Trainee {
     private final int traineeId;
     private final Course course;
 
-    public int getId() {
-        return traineeId;
-    }
+    public int getId() { return traineeId; }
 
-    public Course getCourse() {
-        return course;
-    }
+    public Course getCourse() { return course; }
 
     public Trainee(int traineeId, @NotNull Course course) {
         this.traineeId = traineeId;
