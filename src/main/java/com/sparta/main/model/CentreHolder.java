@@ -1,4 +1,4 @@
-package com.sparta.Controller;
+package com.sparta.main.model;
 
 public class CentreHolder {
 }
