@@ -13,7 +13,7 @@ public class Trainee {
         } while(x<555555); // Check that an employee with ID doesn't already exist
 
         Course[] courses = Course.values();
-        return new Trainee(x, courses[rand.nextInt(0, courses.length)]); // make this give random course
+        return new Trainee(x, courses[rand.nextInt(0, courses.length)]);
     }
 
     private int traineeId;
