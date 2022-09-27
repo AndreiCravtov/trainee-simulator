@@ -1,5 +1,6 @@
 package model;
 
+import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
 import com.sparta.main.model.WaitingList;
 import org.junit.jupiter.api.Assertions;
@@ -15,8 +16,8 @@ public class WaitingListTest {
 
     @BeforeEach
     public void setup() {
-        testTrainee1 = new Trainee();
-        testTrainee2 = new Trainee();
+        testTrainee1 = new Trainee(1, Course.C_SHARP_DEVELOPER);
+        testTrainee2 = new Trainee(2, Course.JAVA_DEVELOPER);
         testWaitingList = WaitingList.getInstance();
     }
 

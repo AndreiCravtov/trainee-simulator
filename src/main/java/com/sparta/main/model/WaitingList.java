@@ -1,31 +1,25 @@
 package com.sparta.main.model;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class WaitingList {
 
     private final BlockingQueue<Trainee> waitingList;
-    private static WaitingList trainingWaitingList;
+    private static WaitingList instance;
 
     private WaitingList() {
         this.waitingList = new PriorityBlockingQueue<>();
     }
 
     public static WaitingList getInstance() {
-        if (trainingWaitingList == null) {
-            trainingWaitingList = new WaitingList();
-        }
-        return trainingWaitingList;
-    }
-
-    public BlockingQueue<Trainee> getWaitingList() {
-        return this.waitingList;
+        if (instance == null)
+            instance = new WaitingList();
+        return instance;
     }
 
     public void addTrainee(Trainee trainee) {
-        waitingList.add(trainee);
+        waitingList.offer(trainee);
     }
 
     public Trainee getFirstInQueue() {
@@ -35,8 +29,8 @@ public class WaitingList {
         return waitingList.poll();
     }
 
-    public int sizeOfWaitingList() {
-        return waitingList.size();
-    }
+    public BlockingQueue<Trainee> getWaitingList() { return waitingList; }
+
+    public int sizeOfWaitingList() { return waitingList.size(); }
 
 }

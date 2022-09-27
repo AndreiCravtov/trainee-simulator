@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class Trainee {
+public class Trainee implements Comparable<Trainee> {
     public static Trainee createTrainee(){
         Random rand = new Random();
         int x;
@@ -16,8 +16,8 @@ public class Trainee {
         return new Trainee(x, courses[rand.nextInt(0, courses.length)]); // make this give random course
     }
 
-    private int traineeId;
-    private Course course;
+    private final int traineeId;
+    private final Course course;
 
     public int getId() {
         return traineeId;
@@ -68,5 +68,10 @@ public class Trainee {
         hash = 53 * hash + traineeId;
         hash = 53 * hash + course.hashCode();
         return hash;
+    }
+
+    @Override
+    public int compareTo(@NotNull Trainee o) {
+        return (this.traineeId - o.traineeId);
     }
 }
