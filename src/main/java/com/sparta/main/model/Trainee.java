@@ -1,4 +1,4 @@
 package com.sparta.main.model;
 
-public class TrainingCentre {
+public class Trainee {
 }
