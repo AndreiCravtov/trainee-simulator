@@ -1,6 +1,5 @@
 package com.sparta.main.model;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
