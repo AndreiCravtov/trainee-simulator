@@ -10,4 +10,9 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="trainee-simulator" options="--add-modules java.logging" />
+    </option>
+  </component>
 </project>
