@@ -1,5 +1,6 @@
 package com.sparta.main.model;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -23,14 +24,18 @@ public class WaitingList {
     }
 
     public Trainee getFirstInQueue() {
-        if (waitingList == null || waitingList.size() == 0) {
+        if (waitingList.size() == 0) {
             return null;
         }
         return waitingList.poll();
     }
 
-    public BlockingQueue<Trainee> getWaitingList() { return waitingList; }
+    public BlockingQueue<Trainee> getWaitingList() {
+        return waitingList;
+    }
 
-    public int sizeOfWaitingList() { return waitingList.size(); }
+    public int sizeOfWaitingList() {
+        return waitingList.size();
+    }
 
 }
