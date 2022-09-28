@@ -1,8 +1,8 @@
 package com.sparta.main.model.trainingcenter;
 
 import com.sparta.main.model.Course;
-import com.sparta.main.model.Timeable;
 import com.sparta.main.model.Trainee;
+import com.sparta.main.model.util.Timeable;
 
 public class TechCentre extends TrainingCentre {
     private final Course course;

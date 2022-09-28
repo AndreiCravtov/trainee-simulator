@@ -1,6 +1,5 @@
 package com.sparta.main.model;
 
-import com.sparta.Starter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
