@@ -5,19 +5,26 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class Trainee implements Comparable<Trainee> {
+
+    static int idCount=0;
+
+    private final int traineeId;
+    private final Course course;
+
+    static int createId(){
+
+        idCount++;
+        return idCount;
+    }
+
     public static Trainee createTrainee(){
+
         Random rand = new Random();
-        int x;
-        do {
-            x = rand.nextInt(100000,1000000);
-        } while(x<555555); // Check that an employee with ID doesn't already exist
+        int x = createId();
 
         Course[] courses = Course.values();
         return new Trainee(x, courses[rand.nextInt(0, courses.length)]);
     }
-
-    private final int traineeId;
-    private final Course course;
 
     public int getId() { return traineeId; }
 
