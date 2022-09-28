@@ -8,16 +8,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ReassignWaitingList implements WaitingList {
 
     public BlockingQueue<Trainee> reassignWaitingList;
-    private static ReassignWaitingList instance;
+    private static ReassignWaitingList reassignInstance;
 
     private ReassignWaitingList() {
         this.reassignWaitingList = new LinkedBlockingQueue<>();
     }
 
     public static WaitingList getInstance() {
-        if (instance == null)
-            instance = new ReassignWaitingList();
-        return instance;
+        if (reassignInstance == null)
+            reassignInstance = new ReassignWaitingList();
+        return reassignInstance;
     }
 
     @Override
