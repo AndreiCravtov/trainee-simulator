@@ -10,7 +10,8 @@ public class TrainingHub extends TrainingCentre {
 
     @Override
     public boolean canBeClosed() {
-        return (timekeeper.getTime() - timeCreated) > GRACE_PERIOD &&
+        return !timekeeper.inGlobalGracePeriod() &&
+                (timekeeper.getTime() - timeCreated) > LOCAL_GRACE_PERIOD &&
                 trainees.size() < 25;
     }
 

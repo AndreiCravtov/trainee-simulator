@@ -1,16 +1,14 @@
 package com.sparta.main.model.util;
 
 public class MonthTime implements Timeable {
-
+    private static final int GLOBAL_GRACE_PERIOD = 3;
     private static int monthCounter = 0;
-    private final int GLOBAL_GRACE_PERIOD = 3;
-    private static MonthTime theTimeInstance;
+    private static MonthTime instance;
 
-    public static MonthTime getMonthlyInstance() {
-        if (theTimeInstance == null) {
-            theTimeInstance = new MonthTime();
-        }
-        return theTimeInstance;
+    public static MonthTime getInstance() {
+        if (instance == null)
+            instance = new MonthTime();
+        return instance;
     }
 
     @Override

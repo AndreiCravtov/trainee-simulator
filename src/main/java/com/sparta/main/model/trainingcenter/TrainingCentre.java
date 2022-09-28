@@ -2,13 +2,12 @@ package com.sparta.main.model.trainingcenter;
 
 import com.sparta.main.model.util.Timeable;
 import com.sparta.main.model.Trainee;
-import com.sparta.main.model.util.MonthTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TrainingCentre {
-    protected static int GRACE_PERIOD = 1;
+    protected static int LOCAL_GRACE_PERIOD = 1;
     protected final int id;
     protected Timeable timekeeper;
     protected int timeCreated;
@@ -23,13 +22,6 @@ public abstract class TrainingCentre {
     public TrainingCentre(int id, Timeable timekeeper) {
         this.id = id;
         this.timekeeper = timekeeper;
-        timeCreated = timekeeper.getTime();
-        trainees = new ArrayList<>();
-    }
-
-    public TrainingCentre(int id) {
-        this.id = id;
-        this.timekeeper = MonthTime.getMonthlyInstance();
         timeCreated = timekeeper.getTime();
         trainees = new ArrayList<>();
     }
