@@ -45,6 +45,7 @@ public class CentreHolder {
             if (tc.canBeClosed()) {
                 centres.remove(tc);
                 removedCentres++;
+
             }
         }
     }
