@@ -36,12 +36,17 @@ public class CentreHolder {
         centres.add(trainingCentre);
     }
 
-    public void closeCentre(TrainingCentre tc) {
+    public void closeCentre() {
         // if ( tc.canBeClosed()) {
         // removedCentres++;
         // List<Trainees> list = tc.getList()
         // list.stream.push(element).forEach(list: element)
-        removedCentres++;
+        for (TrainingCentre tc: centres) {
+            if (tc.canBeClosed()) {
+                centres.remove(tc);
+                removedCentres++;
+            }
+        }
     }
 
     public static int getRemovedCentres() { return removedCentres; }
