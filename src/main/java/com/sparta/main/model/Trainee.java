@@ -1,5 +1,6 @@
 package com.sparta.main.model;
 
+import com.sparta.Starter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
@@ -23,6 +24,7 @@ public class Trainee implements Comparable<Trainee> {
         int x = createId();
 
         return new Trainee(x, Course.getRandomCourse()); // make this give random course
+ //       Starter.logger.info("Trainee: "+ Trainee);
     }
 
 
