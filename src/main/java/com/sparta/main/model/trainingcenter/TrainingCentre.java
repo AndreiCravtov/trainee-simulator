@@ -29,7 +29,7 @@ public abstract class TrainingCentre {
 
     public TrainingCentre(int id) {
         this.id = id;
-        this.timekeeper = MonthTime.getMonthlyInstance();
+        this.timekeeper = MonthTime.getInstance();
         timeCreated = timekeeper.getTime();
         trainees = new ArrayList<>();
     }
