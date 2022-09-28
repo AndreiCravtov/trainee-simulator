@@ -5,6 +5,8 @@ import java.util.List;
 
 public class CentreHolder {
 
+
+    private static int removedCentres;
     private static CentreHolder instance;
     static List<TrainingCentre> centres = new ArrayList<>();
 
@@ -30,7 +32,12 @@ public class CentreHolder {
         centres.add(trainingCentre);
     }
 
+    public void removeCentre(TrainingCentre tc) {
+        centres.remove(tc);
+        removedCentres++;
+    }
 
+    public static int getRemovedCentres() { return removedCentres; }
 
     public static List<TrainingCentre> getCentres() { return centres; }
 
