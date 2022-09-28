@@ -14,6 +14,11 @@ public class TechCentre extends TrainingCentre {
     }
 
     @Override
+    public boolean canBeClosed() {
+        return false;
+    }
+
+    @Override
     public boolean canAdd(Trainee trainee) {
         // if full
         if (course != trainee.getCourse()) return false;

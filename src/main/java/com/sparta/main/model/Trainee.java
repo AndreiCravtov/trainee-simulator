@@ -22,9 +22,9 @@ public class Trainee implements Comparable<Trainee> {
         Random rand = new Random();
         int x = createId();
 
-        Course[] courses = Course.values();
-        return new Trainee(x, courses[rand.nextInt(0, courses.length)]);
+        return new Trainee(x, Course.getRandomCourse()); // make this give random course
     }
+
 
     public int getId() { return traineeId; }
 
