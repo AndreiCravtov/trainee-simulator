@@ -6,27 +6,25 @@ import com.sparta.main.model.Trainee;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class TrainingCentre implements Timeable {
+public abstract class TrainingCentre {
     protected static int GRACE_PERIOD = 1;
     protected final int id;
-    protected int time;
+    protected Timeable timekeeper;
+    protected int timeCreated;
     protected final List<Trainee> trainees;
 
     public int getId() { return id; }
 
-    @Override
-    public int getTime() { return time; }
+    public int getTimeCreated() { return timeCreated; }
 
     public List<Trainee> getTrainees() { return trainees; }
 
-    public TrainingCentre(int centerID) {
-        this.id = centerID;
-        time = 0;
+    public TrainingCentre(int id, Timeable timekeeper) {
+        this.id = id;
+        this.timekeeper = timekeeper;
+        timeCreated = timekeeper.getTime();
         trainees = new ArrayList<>();
     }
-
-    @Override
-    public void tick() { time++; }
 
     public abstract boolean canBeClosed();
 
