@@ -16,8 +16,8 @@ public class WaitingListTest {
 
     @BeforeEach
     public void setup() {
-        testTrainee1 = new Trainee(1, Course.C_SHARP_DEVELOPER);
-        testTrainee2 = new Trainee(2, Course.JAVA_DEVELOPER);
+        testTrainee1 = new Trainee(1, Course.JAVA);
+        testTrainee2 = new Trainee(2, Course.C_SHARP);
     }
 
     @Test
