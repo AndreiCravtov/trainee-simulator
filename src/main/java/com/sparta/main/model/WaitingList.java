@@ -1,15 +1,16 @@
 package com.sparta.main.model;
 
+import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class WaitingList {
 
-    private final BlockingQueue<Trainee> waitingList;
+    private final BlockingDeque<Trainee> waitingList;
     private static WaitingList instance;
 
     private WaitingList() {
-        this.waitingList = new PriorityBlockingQueue<>();
+        this.waitingList = new LinkedBlockingDeque<>();
     }
 
     public static WaitingList getInstance() {
@@ -18,8 +19,12 @@ public class WaitingList {
         return instance;
     }
 
-    public void addTrainee(Trainee trainee) {
-        waitingList.offer(trainee);
+    public boolean addTraineeAtEnd(Trainee trainee) {
+        return waitingList.offer(trainee);
+    }
+
+    public boolean addTraineeAtStart(Trainee trainee) {
+        return waitingList.offerFirst(trainee);
     }
 
     /**

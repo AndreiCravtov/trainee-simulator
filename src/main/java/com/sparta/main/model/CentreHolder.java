@@ -26,6 +26,10 @@ public class CentreHolder {
         }
     }
 
+    public void addToHolder(TrainingCentre trainingCentre) {
+        centres.add(trainingCentre);
+    }
+
 
 
     public static List<TrainingCentre> getCentres() { return centres; }
