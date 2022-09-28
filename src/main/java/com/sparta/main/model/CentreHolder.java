@@ -1,5 +1,6 @@
 package com.sparta.main.model;
 
+import com.sparta.main.model.waitlist.NewTraineeWaitingList;
 import com.sparta.main.model.waitlist.WaitingList;
 import com.sparta.main.model.trainingcenter.TrainingCentre;
 
@@ -24,8 +25,8 @@ public class CentreHolder {
         // tc.addTrainee(WaitingList.queue.remove());
 
         if (trainingCentre != null) {
-            WaitingList waitingList = WaitingList.getInstance();
-            trainingCentre.getTrainee().add(waitingList.getFirstInQueue());
+            WaitingList waitingList = NewTraineeWaitingList.getInstance();
+            trainingCentre.getTrainees().add(waitingList.getFirstInQueue());
         } else {
             throw new IllegalArgumentException();
         }
