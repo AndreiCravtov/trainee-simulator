@@ -1,5 +1,7 @@
 package com.sparta.main.model;
 
+import com.sparta.main.model.waitlist.WaitingList;
+
 import java.util.ArrayList;
 import java.util.List;
 
