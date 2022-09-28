@@ -35,7 +35,10 @@ public class CentreHolder {
     }
 
     public void closeCentre(TrainingCentre tc) {
-        // tc.setClosed() = true;
+        // if ( tc.canBeClosed()) {
+        // removedCentres++;
+        // List<Trainees> list = tc.getList()
+        // list.stream.push(element).forEach(list: element)
         removedCentres++;
     }
 
