@@ -1,10 +1,7 @@
 package com.sparta.main.view;
 
-import org.apache.logging.log4j.Logger;
-
 import java.util.Scanner;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 
 public class TrainingView {
 

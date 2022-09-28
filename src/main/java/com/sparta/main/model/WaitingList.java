@@ -1,11 +1,17 @@
 package com.sparta.main.model;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class WaitingList {
 
+    private final BlockingQueue<Trainee> waitingList;
     private static WaitingList instance;
+
+    private WaitingList() {
+        this.waitingList = new PriorityBlockingQueue<>();
+    }
 
     public static WaitingList getInstance() {
         if (instance == null)
@@ -13,21 +19,23 @@ public class WaitingList {
         return instance;
     }
 
-    private final BlockingQueue<Trainee> waitingList;
+    public void addTrainee(Trainee trainee) {
+        waitingList.offer(trainee);
+    }
 
-    private WaitingList() { waitingList = new PriorityBlockingQueue<>(); }
+    public Trainee getFirstInQueue() {
+        if (waitingList.size() == 0) {
+            return null;
+        }
+        return waitingList.poll();
+    }
 
-    public BlockingQueue<Trainee> getWaitingList() { return waitingList; }
+    public BlockingQueue<Trainee> getWaitingList() {
+        return waitingList;
+    }
 
-    public boolean addTrainee(Trainee trainee) { return waitingList.offer(trainee); }
-
-    /**
-     * Returns the first trainee on the waiting list.
-     * @return returns the first trainee on the waiting list
-     * or {@code null} if the list is empty
-     */
-    public Trainee getFirstInQueue() { return waitingList.poll(); }
-
-    public int sizeOfWaitingList() { return waitingList.size(); }
+    public int sizeOfWaitingList() {
+        return waitingList.size();
+    }
 
 }
