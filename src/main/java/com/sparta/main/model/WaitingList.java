@@ -20,8 +20,8 @@ public class WaitingList {
 
     /**
      * Returns the fist trainee in the waiting list.
-     * @return the first trainee, if list not empty
-     * {@code null} if list is empty
+     * @return the first trainee, if list not empty <br>
+     * {@code null}, if list is empty
      */
     public Trainee getFirstInQueue() { return waitingList.poll(); }
 
