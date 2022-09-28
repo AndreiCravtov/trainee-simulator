@@ -1,6 +1,6 @@
 package com.sparta.main.model.trainingcenter;
 
-import com.sparta.main.model.Timeable;
+import com.sparta.main.model.util.Timeable;
 import com.sparta.main.model.Trainee;
 
 public class TrainingHub extends TrainingCentre {

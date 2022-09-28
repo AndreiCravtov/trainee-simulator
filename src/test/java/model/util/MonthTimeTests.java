@@ -27,7 +27,7 @@ public class MonthTimeTests {
 
     @Test
     public void monthTime_InGracePeriod_true() {
-        Assertions.assertTrue(testTimeable.isGlobalGracePeriod());
+        Assertions.assertTrue(testTimeable.inGlobalGracePeriod());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class MonthTimeTests {
         for (int i = 0; i < 5; i++) {
             testTimeable.tick();
         }
-        Assertions.assertFalse(testTimeable.isGlobalGracePeriod());
+        Assertions.assertFalse(testTimeable.inGlobalGracePeriod());
     }
 
     @AfterEach

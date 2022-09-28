@@ -1,7 +1,5 @@
 package com.sparta.main.model.util;
 
-import com.sparta.main.model.Timeable;
-
 public class MonthTime implements Timeable {
 
     private static int monthCounter = 0;
@@ -26,11 +24,8 @@ public class MonthTime implements Timeable {
     }
 
     @Override
-    public boolean isGlobalGracePeriod() {
-        if (monthCounter < GLOBAL_GRACE_PERIOD) {
-            return true;
-        }
-        return false;
+    public boolean inGlobalGracePeriod() {
+        return monthCounter <= GLOBAL_GRACE_PERIOD;
     }
 
     @Override
