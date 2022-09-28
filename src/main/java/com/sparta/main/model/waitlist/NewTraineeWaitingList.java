@@ -14,7 +14,7 @@ public class NewTraineeWaitingList implements WaitingList {
         this.newTrainingWaitingList = new LinkedBlockingQueue<>();
     }
 
-    public static WaitingList getInstance() {
+    public static NewTraineeWaitingList getInstance() {
         if (newTraineeInstance == null)
             newTraineeInstance = new NewTraineeWaitingList();
         return newTraineeInstance;

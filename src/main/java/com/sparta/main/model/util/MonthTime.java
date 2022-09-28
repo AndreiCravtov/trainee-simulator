@@ -1,15 +1,41 @@
 package com.sparta.main.model.util;
 
-public class MonthTime {
+import com.sparta.main.model.Timeable;
+
+public class MonthTime implements Timeable {
 
     private static int monthCounter = 0;
+    private final int GRACE_PERIOD = 3;
     private static MonthTime theTimeInstance;
 
-    public MonthTime getMonthlyInstance() {
+    public static MonthTime getMonthlyInstance() {
         if (theTimeInstance == null) {
             theTimeInstance = new MonthTime();
         }
         return theTimeInstance;
+    }
+
+    @Override
+    public int getTime() {
+        return currentMonth();
+    }
+
+    @Override
+    public void tick() {
+        incrementMonth();
+    }
+
+    @Override
+    public boolean isGracePeriod() {
+        if (monthCounter < GRACE_PERIOD) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void resetMonthCount() {
+        monthCounter = 0;
     }
 
     public int currentMonth() {
@@ -18,12 +44,5 @@ public class MonthTime {
 
     public int incrementMonth() {
         return monthCounter++;
-    }
-
-    public boolean isGracePeriod() {
-        if (monthCounter < 3) {
-            return true;
-        }
-        return false;
     }
 }
