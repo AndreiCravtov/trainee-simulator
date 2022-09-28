@@ -2,6 +2,7 @@ package com.sparta.main.model;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.util.Random;
 
 public class Trainee implements Comparable<Trainee> {
@@ -12,8 +13,7 @@ public class Trainee implements Comparable<Trainee> {
             x = rand.nextInt(100000,1000000);
         } while(x<555555); // Check that an employee with ID doesn't already exist
 
-        Course[] courses = Course.values();
-        return new Trainee(x, courses[rand.nextInt(0, courses.length)]); // make this give random course
+        return new Trainee(x, Course.getRandomCourse()); // make this give random course
     }
 
     private final int traineeId;
