@@ -14,7 +14,7 @@ public class ReassignWaitingList implements WaitingList {
         this.reassignWaitingList = new LinkedBlockingQueue<>();
     }
 
-    public static WaitingList getInstance() {
+    public static ReassignWaitingList getInstance() {
         if (reassignInstance == null)
             reassignInstance = new ReassignWaitingList();
         return reassignInstance;
