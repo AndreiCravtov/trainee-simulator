@@ -8,16 +8,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class NewTraineeWaitingList implements WaitingList {
 
     public BlockingQueue<Trainee> newTrainingWaitingList;
-    private static NewTraineeWaitingList instance;
+    private static NewTraineeWaitingList newTraineeInstance;
 
     private NewTraineeWaitingList() {
         this.newTrainingWaitingList = new LinkedBlockingQueue<>();
     }
 
-    public static WaitingList getInstance() {
-        if (instance == null)
-            instance = new NewTraineeWaitingList();
-        return instance;
+    public static NewTraineeWaitingList getInstance() {
+        if (newTraineeInstance == null)
+            newTraineeInstance = new NewTraineeWaitingList();
+        return newTraineeInstance;
     }
 
     @Override

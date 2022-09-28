@@ -1,5 +1,6 @@
 package com.sparta.main.model;
 
+import com.sparta.main.model.waitlist.NewTraineeWaitingList;
 import com.sparta.main.model.waitlist.WaitingList;
 import com.sparta.main.model.trainingcenter.TrainingCentre;
 
@@ -24,8 +25,8 @@ public class CentreHolder {
         // tc.addTrainee(WaitingList.queue.remove());
 
         if (trainingCentre != null) {
-            WaitingList waitingList = WaitingList.getInstance();
-            trainingCentre.getTrainee().add(waitingList.getFirstInQueue());
+            WaitingList waitingList = NewTraineeWaitingList.getInstance();
+            trainingCentre.getTrainees().add(waitingList.getFirstInQueue());
         } else {
             throw new IllegalArgumentException();
         }
@@ -35,12 +36,18 @@ public class CentreHolder {
         centres.add(trainingCentre);
     }
 
-    public void closeCentre(TrainingCentre tc) {
+    public void closeCentre() {
         // if ( tc.canBeClosed()) {
         // removedCentres++;
         // List<Trainees> list = tc.getList()
         // list.stream.push(element).forEach(list: element)
-        removedCentres++;
+        for (TrainingCentre tc: centres) {
+            if (tc.canBeClosed()) {
+                centres.remove(tc);
+                removedCentres++;
+
+            }
+        }
     }
 
     public static int getRemovedCentres() { return removedCentres; }

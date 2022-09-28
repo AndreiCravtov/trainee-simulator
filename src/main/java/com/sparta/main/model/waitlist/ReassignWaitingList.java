@@ -5,19 +5,20 @@ import com.sparta.main.model.Trainee;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+
 public class ReassignWaitingList implements WaitingList {
 
     public BlockingQueue<Trainee> reassignWaitingList;
-    private static ReassignWaitingList instance;
+    private static ReassignWaitingList reassignInstance;
 
     private ReassignWaitingList() {
         this.reassignWaitingList = new LinkedBlockingQueue<>();
     }
 
-    public static WaitingList getInstance() {
-        if (instance == null)
-            instance = new ReassignWaitingList();
-        return instance;
+    public static ReassignWaitingList getInstance() {
+        if (reassignInstance == null)
+            reassignInstance = new ReassignWaitingList();
+        return reassignInstance;
     }
 
     @Override

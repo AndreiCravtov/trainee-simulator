@@ -14,17 +14,12 @@ public class NewTraineeWaitingListTest {
     public Trainee testTrainee1;
     public Trainee testTrainee2;
 
-    public WaitingList testWaitingList;
+    public NewTraineeWaitingList testWaitingList;
 
     @BeforeEach
     public void setup() {
         testTrainee1 = new Trainee(1, Course.JAVA);
         testTrainee2 = new Trainee(2, Course.C_SHARP);
-    }
-
-    @Test
-    public void waitingList_noInstance() {
-        Assertions.assertNull(testWaitingList);
     }
 
     @Test
@@ -81,6 +76,9 @@ public class NewTraineeWaitingListTest {
 
     @AfterEach
     public void setdown() {
-        testWaitingList = null;
+        int size = testWaitingList.sizeOfWaitingList();
+        for (int i = 0; i < size; i++) {
+            testWaitingList.getFirstInQueue();
+        }
     }
 }

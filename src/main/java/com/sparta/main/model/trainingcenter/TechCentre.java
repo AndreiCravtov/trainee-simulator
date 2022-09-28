@@ -2,33 +2,36 @@ package com.sparta.main.model.trainingcenter;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
+import com.sparta.main.model.util.Timeable;
 
 public class TechCentre extends TrainingCentre {
     private final Course course;
 
     public Course getCourse() { return course; }
 
-    public TechCentre(int centerID) {
-        super(centerID);
+    public TechCentre(int id, Timeable timekeeper) {
+        super(id, timekeeper);
         course = Course.getRandomCourse();
     }
 
     @Override
     public boolean canBeClosed() {
-        return false;
+        return !timekeeper.inGlobalGracePeriod() &&
+                (timekeeper.getTime() - timeCreated) > LOCAL_GRACE_PERIOD &&
+                trainees.size() < 25;
     }
 
     @Override
     public boolean canAdd(Trainee trainee) {
-        // if full
-        if (course != trainee.getCourse()) return false;
-        return true;
+        return trainee != null &&
+                course == trainee.getCourse() &&
+                trainees.size() < 200 &&
+                !trainees.contains(trainee);
     }
 
     @Override
     public boolean addTrainee(Trainee trainee) {
         if (!canAdd(trainee)) return false;
-        // Do some more checks
-        return true;
+        return trainees.add(trainee);
     }
 }
