@@ -1,12 +1,15 @@
 package com.sparta.main.model;
 
 import com.sparta.main.model.waitlist.WaitingList;
+import com.sparta.main.model.trainingcenter.TrainingCentre;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CentreHolder {
 
+
+    private static int removedCentres;
     private static CentreHolder instance;
     static List<TrainingCentre> centres = new ArrayList<>();
 
@@ -32,7 +35,15 @@ public class CentreHolder {
         centres.add(trainingCentre);
     }
 
+    public void closeCentre(TrainingCentre tc) {
+        // if ( tc.canBeClosed()) {
+        // removedCentres++;
+        // List<Trainees> list = tc.getList()
+        // list.stream.push(element).forEach(list: element)
+        removedCentres++;
+    }
 
+    public static int getRemovedCentres() { return removedCentres; }
 
     public static List<TrainingCentre> getCentres() { return centres; }
 
