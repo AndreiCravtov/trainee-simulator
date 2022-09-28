@@ -221,4 +221,179 @@ used to increment through IDs for trainee so no two trainees
 can have the same ID. The `createTrainee` method creates a 
 new instance of trainee.
 
-## 
+## Timeable
+```java
+public interface Timeable {
+    public int getTime();
+    public void tick();
+    public boolean isGracePeriod();
+    public void resetMonthCount();
+}
+```
+The `Timeable` interface has the above methods.
+
+### MonthTime
+```java
+public class MonthTime implements Timeable {
+
+    private static int monthCounter = 0;
+    private final int GRACE_PERIOD = 3;
+    private static MonthTime theTimeInstance;
+
+    public static MonthTime getMonthlyInstance() {
+        if (theTimeInstance == null) {
+            theTimeInstance = new MonthTime();
+        }
+        return theTimeInstance;
+    }
+
+    @Override
+    public int getTime() {
+        return currentMonth();
+    }
+
+    @Override
+    public void tick() {
+        incrementMonth();
+    }
+
+    @Override
+    public boolean isGracePeriod() {
+        if (monthCounter < GRACE_PERIOD) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void resetMonthCount() {
+        monthCounter = 0;
+    }
+
+    public int currentMonth() {
+        return monthCounter;
+    }
+
+    public int incrementMonth() {
+        return monthCounter++;
+    }
+}
+```
+The `MonthTime` class is an implementation of the `Timeable` interface
+and is responsible for various features pertaining to the passage
+of time in the simulation. It has a `static int monthCounter` that
+keeps track of how much time has passed. The `final int GRACE_PERIOD`
+is there to prevent any centers from being closed in the first 3 months.
+
+## WaitingList
+```java
+public interface WaitingList {
+
+    public boolean addTrainee(Trainee trainee);
+
+    /**
+     * Returns the fist trainee in the waiting list.
+     * @return the first trainee, if list not empty <br>
+     * {@code null}, if list is empty
+     */
+    public Trainee getFirstInQueue();
+
+    public BlockingQueue<Trainee> getWaitingList();
+
+    public int sizeOfWaitingList();
+}
+```
+The `WaitingList` interface has methods for getting the first 
+person in a list, a method for getting the entire list and a 
+method for getting the size of a list.
+
+### New Trainee Waiting List
+```java
+public class NewTraineeWaitingList implements WaitingList {
+
+    public BlockingQueue<Trainee> newTrainingWaitingList;
+    private static NewTraineeWaitingList newTraineeInstance;
+
+    private NewTraineeWaitingList() {
+        this.newTrainingWaitingList = new LinkedBlockingQueue<>();
+    }
+
+    public static NewTraineeWaitingList getInstance() {
+        if (newTraineeInstance == null)
+            newTraineeInstance = new NewTraineeWaitingList();
+        return newTraineeInstance;
+    }
+
+    @Override
+    public boolean addTrainee(Trainee trainee) {
+        return newTrainingWaitingList.offer(trainee);
+    }
+
+    @Override
+    public Trainee getFirstInQueue() {
+        if (newTrainingWaitingList.size() == 0) {
+            return null;
+        }
+        return newTrainingWaitingList.poll();
+    }
+
+    @Override
+    public BlockingQueue<Trainee> getWaitingList() {
+        return newTrainingWaitingList;
+    }
+
+    @Override
+    public int sizeOfWaitingList() {
+        return newTrainingWaitingList.size();
+    }
+}
+```
+The `NewTraineeWaitingList` implements the `WaitingList` interface
+and uses a `BlockingQueue` to order the `newTrainingWaitingList` so 
+that newer `Trainees` are placed behind older ones in the que.
+
+### Reassign Waiting List
+```java
+public class ReassignWaitingList implements WaitingList {
+
+    public BlockingQueue<Trainee> reassignWaitingList;
+    private static ReassignWaitingList reassignInstance;
+
+    private ReassignWaitingList() {
+        this.reassignWaitingList = new LinkedBlockingQueue<>();
+    }
+
+    public static ReassignWaitingList getInstance() {
+        if (reassignInstance == null)
+            reassignInstance = new ReassignWaitingList();
+        return reassignInstance;
+    }
+
+    @Override
+    public boolean addTrainee(Trainee trainee) {
+        return reassignWaitingList.offer(trainee);
+    }
+
+    @Override
+    public Trainee getFirstInQueue() {
+        if (reassignWaitingList.size() == 0) {
+            return null;
+        }
+        return reassignWaitingList.poll();
+    }
+
+    @Override
+    public BlockingQueue<Trainee> getWaitingList() {
+        return reassignWaitingList;
+    }
+
+    @Override
+    public int sizeOfWaitingList() {
+        return reassignWaitingList.size();
+    }
+}
+```
+The `ReassignWaitingList` implements the `WaitingList` interface
+and uses a `BlockingQueue` to order the `ReassignWaitingList`. 
+`Trainees`in the `ReassignWaitingList` will be given priority over 
+those in the `newTrainingWaitingList`.
