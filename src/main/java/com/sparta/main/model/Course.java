@@ -1,9 +1,11 @@
 package com.sparta.main.model;
 
 public enum Course {
-    JAVA_DEVELOPER("Java Developer"),
-    PYTHON_DEVELOPER("Python Developer"),
-    C_SHARP_DEVELOPER("C# Developer");
+    JAVA("Java"),
+    C_SHARP("C#"),
+    DATA("Data"),
+    DEV_OPS("DevOps"),
+    BUSINESS("Business");
 
     private final String name;
 
