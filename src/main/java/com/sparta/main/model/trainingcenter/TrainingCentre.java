@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TrainingCentre {
-    protected static int GRACE_PERIOD = 1;
+    protected static int LOCAL_GRACE_PERIOD = 1;
     protected final int id;
     protected Timeable timekeeper;
     protected int timeCreated;
