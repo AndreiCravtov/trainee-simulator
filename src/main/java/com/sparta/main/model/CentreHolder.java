@@ -26,7 +26,7 @@ public class CentreHolder {
 
         if (trainingCentre != null) {
             WaitingList waitingList = NewTraineeWaitingList.getInstance();
-            trainingCentre.getTrainee().add(waitingList.getFirstInQueue());
+            trainingCentre.getTrainees().add(waitingList.getFirstInQueue());
         } else {
             throw new IllegalArgumentException();
         }
