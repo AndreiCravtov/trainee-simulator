@@ -16,22 +16,40 @@ public class WaitingListTest {
 
     @BeforeEach
     public void setup() {
-        testTrainee1 = new Trainee(1, Course.C_SHARP_DEVELOPER);
-        testTrainee2 = new Trainee(2, Course.JAVA_DEVELOPER);
-        testWaitingList = WaitingList.getInstance();
+        testTrainee1 = new Trainee(1, Course.JAVA);
+        testTrainee2 = new Trainee(2, Course.C_SHARP);
+    }
+
+    @Test
+    public void waitingList_noInstance() {
+        Assertions.assertNull(testWaitingList);
     }
 
     @Test
     public void waitingList_instanceCreated() {
-        WaitingList.getInstance();
+        testWaitingList = WaitingList.getInstance();
         Assertions.assertNotNull(testWaitingList.getWaitingList());
     }
 
     @Test
     public void waitingList_addTrainees() {
+        testWaitingList = WaitingList.getInstance();
         int startSize = testWaitingList.sizeOfWaitingList();
         testWaitingList.addTrainee(testTrainee1);
         int afterSize = testWaitingList.sizeOfWaitingList();
         Assertions.assertEquals(startSize+1,afterSize);
+    }
+
+    @Test
+    public void waitingList_getFirstInQueue() {
+        testWaitingList = WaitingList.getInstance();
+        testWaitingList.addTrainee(testTrainee1);
+        Assertions.assertEquals(testTrainee1, testWaitingList.getFirstInQueue());
+    }
+
+    @Test
+    public void waitingList_getFirstInQueue_emptyQueue() {
+        testWaitingList = WaitingList.getInstance();
+        Assertions.assertNull(testWaitingList.getFirstInQueue());
     }
 }
