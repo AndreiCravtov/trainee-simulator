@@ -12,7 +12,7 @@ public class MonthTimeTests {
 
     @BeforeEach
     public void setup() {
-        testTimeable = MonthTime.getMonthlyInstance();
+        testTimeable = MonthTime.getInstance();
     }
 
     @Test
