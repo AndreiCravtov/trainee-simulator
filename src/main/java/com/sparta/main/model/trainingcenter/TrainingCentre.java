@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TrainingCentre {
-    private final int centerID;
-    private final List<Trainee> trainees;
+    protected final int centerID;
+    protected final List<Trainee> trainees;
 
-    private boolean open;
+    protected boolean open;
 
     public int getCenterID() { return centerID; }
 
