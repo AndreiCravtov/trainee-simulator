@@ -32,8 +32,8 @@ public class CentreHolder {
         centres.add(trainingCentre);
     }
 
-    public void removeCentre(TrainingCentre tc) {
-        centres.remove(tc);
+    public void closeCentre(TrainingCentre tc) {
+        // tc.setClosed() = true;
         removedCentres++;
     }
 
