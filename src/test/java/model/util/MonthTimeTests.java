@@ -1,6 +1,5 @@
 package model.util;
 
-import com.sparta.main.model.Timeable;
 import com.sparta.main.model.util.MonthTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +27,7 @@ public class MonthTimeTests {
 
     @Test
     public void monthTime_InGracePeriod_true() {
-        Assertions.assertTrue(testTimeable.isGracePeriod());
+        Assertions.assertTrue(testTimeable.isGlobalGracePeriod());
     }
 
     @Test
@@ -44,11 +43,11 @@ public class MonthTimeTests {
         for (int i = 0; i < 5; i++) {
             testTimeable.tick();
         }
-        Assertions.assertFalse(testTimeable.isGracePeriod());
+        Assertions.assertFalse(testTimeable.isGlobalGracePeriod());
     }
 
     @AfterEach
     public void setdown() {
-        testTimeable.resetMonthCount();
+        testTimeable.resetTime();
     }
 }
