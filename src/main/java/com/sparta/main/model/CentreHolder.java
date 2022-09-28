@@ -26,7 +26,7 @@ public class CentreHolder {
 
         if (trainingCentre != null) {
             WaitingList waitingList = NewTraineeWaitingList.getInstance();
-            trainingCentre.getTrainees().add(waitingList.getFirstInQueue());
+            trainingCentre.getTrainee().add(waitingList.getFirstInQueue());
         } else {
             throw new IllegalArgumentException();
         }
@@ -36,17 +36,12 @@ public class CentreHolder {
         centres.add(trainingCentre);
     }
 
-    public void closeCentres() {
+    public void closeCentre(TrainingCentre tc) {
         // if ( tc.canBeClosed()) {
         // removedCentres++;
         // List<Trainees> list = tc.getList()
         // list.stream.push(element).forEach(list: element)
-        for (TrainingCentre tc: centres) {
-            if (tc.canBeClosed()) {
-                centres.remove(tc);
-                removedCentres++;
-            }
-        }
+        removedCentres++;
     }
 
     public static int getRemovedCentres() { return removedCentres; }
