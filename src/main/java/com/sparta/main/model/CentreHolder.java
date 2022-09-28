@@ -1,5 +1,7 @@
 package com.sparta.main.model;
 
+import com.sparta.main.model.trainingcenter.TrainingCentre;
+
 import java.util.ArrayList;
 import java.util.List;
 
