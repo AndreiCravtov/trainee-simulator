@@ -1,15 +1,16 @@
 package com.sparta.main.model.trainingcenter;
 
-import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.newtrainee.WaitingList;
-
+import com.sparta.main.model.Trainee;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CentreHolder {
-    private static int removedCentres;
     private static CentreHolder instance;
-    static List<TrainingCentre> centres = new ArrayList<>();
+    private final List<TrainingCentre> centres = new ArrayList<>();
+    private int removedCentres;
+
+    public List<TrainingCentre> getCentres() { return centres; }
+    public int getRemovedCentres() { return removedCentres; }
 
     public static CentreHolder getInstance() {
         if (instance == null)
@@ -17,20 +18,20 @@ public class CentreHolder {
         return instance;
     }
 
-    public void assignTrainees(TrainingCentre trainingCentre) {
-        // TrainingCentre tc = class.findAvailableCentre();
-        // tc.addTrainee(WaitingList.queue.remove());
-
-        if (trainingCentre != null) {
-            WaitingList waitingList = NewTraineeWaitingList.getInstance();
-            //trainingCentre.getTrainees().add(waitingList.getFirstInQueueByType(WaitingListType.NEWTRAINEE));
-        } else {
-            throw new IllegalArgumentException();
-        }
+    public Trainee assignTrainee(Trainee trainee) {
+        for (TrainingCentre centre: centres)
+            if (centre.addTrainee(trainee))
+                return null;
+        return trainee;
     }
 
-    public void addToHolder(TrainingCentre trainingCentre) {
-        centres.add(trainingCentre);
+    public boolean canAddCentre(TrainingCentre centre) {
+        return centre != null;
+    }
+
+    public boolean addCentre(TrainingCentre centre) {
+        if (!canAddCentre(centre)) return false;
+        return centres.add(centre);
     }
 
     public void closeCentre() {
@@ -41,11 +42,4 @@ public class CentreHolder {
             }
         }
     }
-
-    public static int getRemovedCentres() { return removedCentres; }
-
-    public static List<TrainingCentre> getCentres() { return centres; }
-
-    public static void addCentre(TrainingCentre trainingCentre) { centres.add(trainingCentre); }
-
 }
