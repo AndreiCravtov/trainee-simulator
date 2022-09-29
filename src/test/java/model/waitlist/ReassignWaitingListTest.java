@@ -1,8 +1,8 @@
 package model.waitlist;
 
+import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
-import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.reassign.ReassignWaitingList;
+import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,54 +24,61 @@ public class ReassignWaitingListTest {
 
     @Test
     public void waitingList_instanceCreated() {
-        Assertions.assertNotNull(testWaitingList.getWaitingList());
+        Assertions.assertNotNull(testWaitingList.getReassignWaitingList());
     }
 
     @Test
     public void waitingList_addTraineeAtEnd() {
-        int startSize = testWaitingList.sizeOfWaitingList();
-        Assertions.assertTrue(testWaitingList.addTrainee(testTrainee1));
-        int afterSize = testWaitingList.sizeOfWaitingList();
+        int startSize = testWaitingList.sizeOfReassignWaitingList();
+        Assertions.assertTrue(testWaitingList.addReassignTrainee(testTrainee1));
+        int afterSize = testWaitingList.sizeOfReassignWaitingList();
         Assertions.assertEquals(startSize+1,afterSize);
     }
 
     @Test
     public void waitingList_getFirstInList_OneTraineeAtEnd() {
-        testWaitingList.addTrainee(testTrainee1);
-        Assertions.assertEquals(testTrainee1, testWaitingList.getFirstTrainee());
+        testWaitingList.addReassignTrainee(testTrainee1);
+        Assertions.assertEquals(testTrainee1, testWaitingList.getFirstReassignTrainee());
     }
 
     @Test
     public void waitingList_addTrainee() {
-        int startSize = testWaitingList.sizeOfWaitingList();
-        Assertions.assertTrue(testWaitingList.addTrainee(testTrainee1));
-        int afterSize = testWaitingList.sizeOfWaitingList();
+        int startSize = testWaitingList.sizeOfReassignWaitingList();
+        Assertions.assertTrue(testWaitingList.addReassignTrainee(testTrainee1));
+        int afterSize = testWaitingList.sizeOfReassignWaitingList();
         Assertions.assertEquals(startSize+1,afterSize);
     }
 
     @Test
     public void waitingList_getFirstInList_OneTrainee() {
-        testWaitingList.addTrainee(testTrainee1);
-        Assertions.assertEquals(testTrainee1, testWaitingList.getFirstTrainee());
+        testWaitingList.addReassignTrainee(testTrainee1);
+        Assertions.assertEquals(testTrainee1, testWaitingList.getFirstReassignTrainee());
+    }
+
+    @Test
+    public void waitingList_getByType_OneTrainee() {
+        testWaitingList.addReassignTrainee(testTrainee1);
+        Course testCourse = testTrainee1.getCourse();
+        Assertions.assertEquals(testTrainee1, testWaitingList.getFirstReassignTraineeByType(testCourse));
     }
 
     @Test
     public void waitingList_getFirstInList_MultipleTrainees() {
-        testWaitingList.addTrainee(testTrainee2);
-        testWaitingList.addTrainee(testTrainee1);
-        Assertions.assertEquals(testTrainee2, testWaitingList.getFirstTrainee());
+        testWaitingList.addReassignTrainee(testTrainee2);
+        testWaitingList.addReassignTrainee(testTrainee1);
+        Assertions.assertEquals(testTrainee2, testWaitingList.getFirstReassignTrainee());
     }
 
     @Test
     public void waitingList_getFirstInList_emptyQueue() {
-        Assertions.assertNull(testWaitingList.getFirstTrainee());
+        Assertions.assertNull(testWaitingList.getFirstReassignTrainee());
     }
 
     @AfterEach
     public void setdown() {
-        int size = testWaitingList.sizeOfWaitingList();
+        int size = testWaitingList.sizeOfReassignWaitingList();
         for (int i = 0; i < size; i++) {
-            testWaitingList.getWaitingList().remove(0);
+            testWaitingList.getReassignWaitingList().remove(0);
         }
     }
 }
