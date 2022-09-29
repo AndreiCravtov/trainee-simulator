@@ -2,8 +2,7 @@ package model.waitlist;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
-import com.sparta.main.model.waitlist.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.WaitingList;
+import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

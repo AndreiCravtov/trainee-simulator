@@ -2,11 +2,11 @@ package com.sparta;
 
 import com.sparta.main.model.CentreHolder;
 import com.sparta.main.model.trainingcenter.TrainingCentre;
-import com.sparta.main.model.waitlist.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.ReassignWaitingList;
+import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
+import com.sparta.main.model.waitlist.reassign.ReassignWaitingList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.List;
+
 import java.util.Random;
 
 
