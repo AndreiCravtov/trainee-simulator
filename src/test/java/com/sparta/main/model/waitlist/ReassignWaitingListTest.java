@@ -2,7 +2,6 @@ package com.sparta.main.model.waitlist;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
-import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

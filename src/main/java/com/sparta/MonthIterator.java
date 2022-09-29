@@ -5,9 +5,9 @@ import com.sparta.main.model.client.Client;
 import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.*;
 import com.sparta.main.model.util.MonthTime;
-import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.posttraining.BenchList;
-import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
+import com.sparta.main.model.waitlist.NewTraineeWaitingList;
+import com.sparta.main.model.waitlist.BenchList;
+import com.sparta.main.model.waitlist.ReassignWaitingList;
 
 import java.util.List;
 import java.util.Random;
