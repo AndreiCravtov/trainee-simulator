@@ -2,7 +2,7 @@ package com.sparta.main.model.client;
 
 import java.util.List;
 
-public class ClientCollection {
+public class ClientHolder {
 
     public List<Client> clients;
 
