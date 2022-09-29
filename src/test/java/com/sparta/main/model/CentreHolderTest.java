@@ -14,9 +14,9 @@ class CentreHolderTest {
     @DisplayName("Functional Test 1")
     void test1() {
         CentreHolder holder = CentreHolder.getInstance();
-        TrainingCentre tc = new TechCentre(6969, MonthTime.getInstance());
-        holder.addToHolder(tc);
-        Assertions.assertEquals(1, CentreHolder.getCentres().size());
+        TrainingCentre tc = new TechCentre(MonthTime.getInstance());
+        holder.addCentre(tc);
+        Assertions.assertEquals(1, holder.getCentres().size());
 
     }
 
@@ -24,9 +24,11 @@ class CentreHolderTest {
     @DisplayName("Functional Test 2")
     void test2() {
         CentreHolder holder = CentreHolder.getInstance();
-        TrainingCentre tc = new TechCentre(6969, MonthTime.getInstance());
-        holder.addToHolder(tc);
-        Assertions.assertEquals(1, CentreHolder.getCentres().size());
+        TrainingCentre tc = new TechCentre(MonthTime.getInstance());
+        for (int i = 0; i < 50; i++) {
+            holder.addCentre(tc);
+        }
+        Assertions.assertEquals(50, holder.getCentres().size());
 
     }
 
