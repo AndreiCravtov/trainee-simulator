@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 public class Client {
 
     Random random = new Random();
@@ -15,10 +16,12 @@ public class Client {
     List<Trainee> assignedClients = new ArrayList<>();
     boolean happy = false;
 
+
     public Client() {
         String[] types = new String[] {"JAVA", "C#", "DEV-OPS", "TESTING", "BUSINESS"};
         this.traineeType = types[random.nextInt(0, types.length - 1)];
-        this.traineesRequired = random.nextInt(15, 100);
+        this.traineesRequired = Poisson.getPoissonRandom(Math.sqrt(1500));
+        // put a distribution for the client size requirement
     }
 
     public String getTraineeType() {
