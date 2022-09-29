@@ -22,9 +22,7 @@ public class MonthIterator {
         ReassignWaitingList reassignWaitingList = ReassignWaitingList.getInstance();
         NewTraineeWaitingList newTraineeWaitingList=NewTraineeWaitingList.getInstance();
 
-
         int extraTrainees;
-
 
         MonthTime monthTime = MonthTime.getInstance();
 
@@ -34,11 +32,11 @@ public class MonthIterator {
                 //add a centre
                 switch (rand.nextInt(0, 3)) {
                     case 0:
-                        centreHolder.addToHolder(new TechCentre(monthTime));
+                        centreHolder.addCentre(new TechCentre(monthTime));
                     case 1:
-                        centreHolder.addToHolder(new TrainingHub(monthTime));
+                        centreHolder.addCentre(new TrainingHub(monthTime));
                     case 2:
-                        centreHolder.addToHolder(new Bootcamp(monthTime));
+                        centreHolder.addCentre(new Bootcamp(monthTime));
                 }
             }
 
@@ -54,14 +52,12 @@ public class MonthIterator {
 
             //add trainees
             extraTrainees = rand.nextInt(51);
-            for (int j = 50; j < extraTrainees + 50; j++) {
+            for (int j = 0; j < extraTrainees + 50; j++) {
                 newTraineeWaitingList.addTrainee(new Trainee());
             }
 
 
-            int assignTrainees = ;
-
-
+            int assignTrainees;
 
             //assign trainees + check if centre needs to be closed
             for (TrainingCentre trainingCentre : centreHolder.getCentres()) {
@@ -72,9 +68,9 @@ public class MonthIterator {
                 if ((reassignWaitingList.sizeOfReassignWaitingList()!= 0) && counter < assignTrainees) {
                     for (Trainee trainee : reassignWaitingList.getReassignWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
-                            trainingCentre.addTrainee((trainee));
-
-                            reassignWaitingList.removeReassignedTrainee(trainee);
+                            if (centreHolder.assignTrainee(trainee) != null) {
+                                reassignWaitingList.removeReassignedTrainee(trainee);
+                            };
                             counter++;
                         }
                     }
@@ -84,8 +80,9 @@ public class MonthIterator {
                 if ((newTraineeWaitingList.sizeOfWaitingList() != 0) && counter < assignTrainees) {
                     for (Trainee trainee : newTraineeWaitingList.getWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
-                            trainingCentre.addTrainee((trainee));
-                            newTraineeWaitingList.getFirstInQueue();
+                            if (centreHolder.assignTrainee(trainee) != null) {
+                                newTraineeWaitingList.getFirstInQueue();
+                            };
                             counter++;
                         }
                     }
