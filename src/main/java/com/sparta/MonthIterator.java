@@ -57,7 +57,7 @@ public class MonthIterator {
             //add trainees
             extraTrainees = rand.nextInt(51);
             for (int j = 0; j < extraTrainees + 50; j++) {
-                newTraineeWaitingList.addTrainee(new Trainee());
+                newTraineeWaitingList.addTrainee(new Trainee(monthTime));
             }
 
 
