@@ -683,11 +683,13 @@ public abstract class PostTraining {
 }
 ```
 ### Reassign Waiting List
+
 ```java
 package com.sparta.main.model.waitlist.posttraining;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
+import com.sparta.main.model.waitlist.PostTraining;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -709,12 +711,16 @@ public class ReassignWaitingList extends PostTraining {
     }
 
     public boolean addReassignTrainee(Trainee trainee) {
-        return addTrainee(reassignWaitingList,trainee);
-    };
+        return addTrainee(reassignWaitingList, trainee);
+    }
+
+    ;
 
     public Trainee getFirstReassignTraineeByType(Course type) {
         return getFirstTraineeByType(reassignWaitingList, type);
-    };
+    }
+
+    ;
 
     public Trainee getFirstReassignTrainee() {
         return getFirstTrainee(reassignWaitingList);
@@ -722,19 +728,25 @@ public class ReassignWaitingList extends PostTraining {
 
     public List<Trainee> getReassignWaitingList() {
         return getWaitingList(reassignWaitingList);
-    };
+    }
+
+    ;
 
     public int sizeOfReassignWaitingList() {
         return sizeOfWaitingList(reassignWaitingList);
-    };
+    }
+
+    ;
 
     public int numberOfReassignedTraineeOfType(Course type) {
         return numberOfTraineeOfType(reassignWaitingList, type);
-    };
+    }
+
+    ;
 
     public Trainee removeReassignedTrainee(Course type) {
         Trainee foundTrainee = getFirstReassignTraineeByType(type);
-        if (removeTrainee(reassignWaitingList,foundTrainee)) {
+        if (removeTrainee(reassignWaitingList, foundTrainee)) {
             return foundTrainee;
         }
         return null;
