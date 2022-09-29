@@ -6,12 +6,9 @@ import com.sparta.main.model.Trainee;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class Client {
-
-    Random random = new Random();
     final Course traineeType;
     final int traineesRequired;
     List<Trainee> assignedClients = new ArrayList<>();
@@ -41,6 +38,6 @@ public class Client {
         return happy;
     }
 
-    public void addConsultant(Trainee trainee) { this.assignedClients.add(trainee); }
+    public void addTrainee(Trainee trainee) { this.assignedClients.add(trainee); }
 
 }
