@@ -1,6 +1,6 @@
 package com.sparta.main.view;
 
-import com.sparta.main.model.CentreHolder;
+import com.sparta.main.model.trainingcenter.CentreHolder;
 
 public class ViewStatus {
     public static void viewStatus(){
