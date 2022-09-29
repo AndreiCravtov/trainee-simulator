@@ -28,7 +28,7 @@ public class MonthIterator {
 
         MonthTime monthTime = MonthTime.getInstance();
 
-        while(monthTime.getTime()<24){
+        while(monthTime.getTime() < months){
             int month=monthTime.getTime();
             if (month % 2 == 0) {
                 //add a centre
@@ -64,15 +64,14 @@ public class MonthIterator {
             for (TrainingCentre trainingCentre : centreHolder.getCentres()) {
                 assignTrainees = rand.nextInt(51);
 
-
                 int counter=0;
-
 
                 if ((reassignWaitingList.sizeOfReassignWaitingList()!= 0) && counter < assignTrainees) {
                     for (Trainee trainee : reassignWaitingList.getReassignWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
                             trainingCentre.addTrainee((trainee));
-                            //need to remove the trainee
+
+                            reassignWaitingList.removeReassignedTrainee(trainee);
                             counter++;
                         }
                     }
@@ -83,20 +82,14 @@ public class MonthIterator {
                     for (Trainee trainee : newTraineeWaitingList.getWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
                             trainingCentre.addTrainee((trainee));
-                            //need to remove the trainee
+                            newTraineeWaitingList.getFirstInQueue();
                             counter++;
                         }
                     }
                 }
-
-
-
-
-                //check if centre needs to be closed
-                if (trainingCentre.canBeClosed()) ; //close training centre
-
-
             }
+
+            centreHolder.closeCentre();
 
             monthTime.incrementMonth();
         }
