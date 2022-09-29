@@ -21,6 +21,7 @@ public abstract class PostTraining {
     };
 
     public Trainee getFirstTrainee(List<Trainee> list) {
+        if (list.size() < 1) return null;
         return list.get(0);
     }
 
