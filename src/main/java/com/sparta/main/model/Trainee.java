@@ -11,18 +11,9 @@ public class Trainee implements Comparable<Trainee> {
     private final int traineeId;
     private final Course course;
 
-    static int createId(){
-        idCount++;
-        return idCount;
-    }
-
     public static Trainee createTrainee(){
 
-        Random rand = new Random();
-        int x = createId();
-
-        return new Trainee(x, Course.getRandomCourse()); // make this give random course
- //       Starter.logger.info("Trainee: "+ Trainee);
+        return new Trainee(idCount++ , Course.getRandomCourse()); // make this give random course
     }
 
 
