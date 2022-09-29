@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ClientTest {
 
     @Test
@@ -16,7 +14,7 @@ class ClientTest {
     void test1() {
         Client client = new Client();
         String[] types = new String[] {"JAVA", "C#", "DEV-OPS", "TESTING", "BUSINESS"};
-        boolean check = Arrays.asList(types).contains(client.getTraineeType());
+        boolean check = Arrays.asList(types).contains(client.getCourse());
         Assertions.assertTrue(check);
     }
 

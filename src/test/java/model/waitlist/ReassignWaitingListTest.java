@@ -74,6 +74,19 @@ public class ReassignWaitingListTest {
         Assertions.assertNull(testWaitingList.getFirstReassignTrainee());
     }
 
+    @Test
+    public void waitingList_numberOfTrainees_ByType() {
+        testWaitingList.addReassignTrainee(testTrainee2);
+        testWaitingList.addReassignTrainee(testTrainee1);
+        Course trainee1course = testTrainee1.getCourse();
+        if (trainee1course == testTrainee2.getCourse()) {
+            Assertions.assertEquals(2, testWaitingList.numberOfReassignedTraineeOfType(trainee1course));
+        }
+        else {
+            Assertions.assertEquals(1, testWaitingList.numberOfReassignedTraineeOfType(trainee1course));
+        }
+    }
+
     @AfterEach
     public void setdown() {
         int size = testWaitingList.sizeOfReassignWaitingList();
