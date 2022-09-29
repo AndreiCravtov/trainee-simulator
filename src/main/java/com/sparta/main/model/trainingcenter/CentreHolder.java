@@ -1,6 +1,8 @@
 package com.sparta.main.model.trainingcenter;
 
 import com.sparta.main.model.Trainee;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class CentreHolder {
     private int removedCentres;
 
     public List<TrainingCentre> getCentres() { return centres; }
+
     public int getRemovedCentres() { return removedCentres; }
 
     public static CentreHolder getInstance() {
@@ -18,7 +21,14 @@ public class CentreHolder {
         return instance;
     }
 
-    public Trainee assignTrainee(Trainee trainee) {
+    /**
+     * Assigns a trainee to one of the available centres.
+     *
+     * @param trainee the trainee to be assigned
+     * @return {@code null} if the trainee was assigned, <br>
+     * the input {@code Trainee} object if not.
+     */
+    public Trainee assignTrainee(@NotNull Trainee trainee) {
         for (TrainingCentre centre: centres)
             if (centre.addTrainee(trainee))
                 return null;
