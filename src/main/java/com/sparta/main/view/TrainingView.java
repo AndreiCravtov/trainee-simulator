@@ -1,13 +1,20 @@
 package com.sparta.main.view;
 
+import com.sparta.Starter;
+
 import java.util.Scanner;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TrainingView {
 
+    static Scanner scn = new Scanner(System.in);  // Create a Scanner object
+    static Logger logger = LogManager.getLogger(Starter.class);
+
     public static boolean getValidBool(String message) {
-        Scanner scn = new Scanner(System.in);  // Create a Scanner object
-        Logger logger = null;
+
 
         System.out.println(message);
         while (true) {
@@ -21,6 +28,21 @@ public class TrainingView {
                 System.out.println(e.getMessage());
             }
 
+        }
+    }
+
+    public static int getMonths(String message) {
+        while (true) {
+            try {
+                int userInp = scn.nextInt();
+                if (userInp > 2 && userInp < 5000){
+                    logger.log(Level.TRACE, String.format("User decided that %s months will be simulated", userInp));
+                    return userInp;
+                }
+                else System.out.println("Enter a number bigger than 1");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
