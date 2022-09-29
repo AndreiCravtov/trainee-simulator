@@ -1,4 +1,4 @@
-package com.sparta.main.model.waitlist.posttraining;
+package com.sparta.main.model.waitlist;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;

@@ -1,11 +1,10 @@
 package com.sparta.main.model;
 
 import com.sparta.MonthIterator;
-import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.CentreHolder;
 import com.sparta.main.model.util.MonthTime;
-import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
+import com.sparta.main.model.waitlist.NewTraineeWaitingList;
+import com.sparta.main.model.waitlist.ReassignWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
