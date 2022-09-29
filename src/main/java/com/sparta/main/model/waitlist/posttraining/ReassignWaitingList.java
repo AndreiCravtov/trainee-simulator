@@ -45,12 +45,4 @@ public class ReassignWaitingList extends PostTraining {
     public int numberOfReassignedTraineeOfType(Course type) {
         return numberOfTraineeOfType(reassignWaitingList, type);
     };
-
-    public Trainee removeReassignedTrainee(Course type) {
-        Trainee foundTrainee = getFirstReassignTraineeByType(type);
-        if (removeTrainee(reassignWaitingList,foundTrainee)) {
-            return foundTrainee;
-        }
-        return null;
-    }
 }

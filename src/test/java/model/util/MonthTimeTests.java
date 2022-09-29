@@ -1,5 +1,6 @@
-package com.sparta.main.model.util;
+package model.util;
 
+import com.sparta.main.model.util.MonthTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -20,10 +20,6 @@ public abstract class PostTraining {
         return foundTrainee;
     };
 
-    public boolean removeTrainee(List<Trainee> list, Trainee trainee) {
-        return list.remove(trainee);
-    }
-
     public Trainee getFirstTrainee(List<Trainee> list) {
         if (list.size() < 1) return null;
         return list.get(0);

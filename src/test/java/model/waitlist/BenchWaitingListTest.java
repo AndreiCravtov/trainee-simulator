@@ -1,6 +1,9 @@
-package com.sparta.main.model;
+package model.waitlist;
 
+import com.sparta.main.model.Course;
+import com.sparta.main.model.Trainee;
 import com.sparta.main.model.waitlist.posttraining.BenchList;
+import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,15 +86,6 @@ public class BenchWaitingListTest {
         else {
             Assertions.assertEquals(1, testWaitingList.numberOfBenchedTraineeOfType(trainee1course));
         }
-    }
-
-    @Test
-    public void waitingList_removeTrainees() {
-        testWaitingList.addBenchTrainee(testTrainee1);
-        Assertions.assertEquals(1,testWaitingList.sizeOfBenchWaitingList());
-        Trainee removedTrainee = testWaitingList.removeBenchedTrainee(testTrainee1.getCourse());
-        Assertions.assertNotNull(removedTrainee);
-        Assertions.assertEquals(testTrainee1,removedTrainee);
     }
 
     @AfterEach
