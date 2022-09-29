@@ -1,5 +1,7 @@
-package com.sparta.main.model;
+package com.sparta.main.model.waitlist;
 
+import com.sparta.main.model.Course;
+import com.sparta.main.model.Trainee;
 import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -89,9 +91,9 @@ public class ReassignWaitingListTest {
     public void waitingList_removeTrainees() {
         testWaitingList.addReassignTrainee(testTrainee1);
         Assertions.assertEquals(1,testWaitingList.sizeOfReassignWaitingList());
-        Trainee removedTrainee = testWaitingList.removeReassignedTrainee(testTrainee1.getCourse());
+        boolean removedTrainee = testWaitingList.removeReassignedTrainee(testTrainee1);
         Assertions.assertNotNull(removedTrainee);
-        Assertions.assertEquals(testTrainee1,removedTrainee);
+        Assertions.assertTrue(removedTrainee);
     }
 
     @AfterEach
