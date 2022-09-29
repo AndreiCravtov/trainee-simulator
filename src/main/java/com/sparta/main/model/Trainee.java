@@ -12,7 +12,6 @@ public class Trainee implements Comparable<Trainee> {
     private final Course course;
 
     static int createId(){
-
         idCount++;
         return idCount;
     }
