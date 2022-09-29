@@ -85,6 +85,15 @@ public class ReassignWaitingListTest {
         }
     }
 
+    @Test
+    public void waitingList_removeTrainees() {
+        testWaitingList.addReassignTrainee(testTrainee1);
+        Assertions.assertEquals(1,testWaitingList.sizeOfReassignWaitingList());
+        Trainee removedTrainee = testWaitingList.removeReassignedTrainee(testTrainee1.getCourse());
+        Assertions.assertNotNull(removedTrainee);
+        Assertions.assertEquals(testTrainee1,removedTrainee);
+    }
+
     @AfterEach
     public void setdown() {
         int size = testWaitingList.sizeOfReassignWaitingList();

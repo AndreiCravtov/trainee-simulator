@@ -85,6 +85,15 @@ public class BenchWaitingListTest {
         }
     }
 
+    @Test
+    public void waitingList_removeTrainees() {
+        testWaitingList.addBenchTrainee(testTrainee1);
+        Assertions.assertEquals(1,testWaitingList.sizeOfBenchWaitingList());
+        Trainee removedTrainee = testWaitingList.removeBenchedTrainee(testTrainee1.getCourse());
+        Assertions.assertNotNull(removedTrainee);
+        Assertions.assertEquals(testTrainee1,removedTrainee);
+    }
+
     @AfterEach
     public void setdown() {
         int size = testWaitingList.sizeOfBenchWaitingList();
