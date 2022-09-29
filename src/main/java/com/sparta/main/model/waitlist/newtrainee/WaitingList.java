@@ -1,4 +1,4 @@
-package com.sparta.main.model.waitlist;
+package com.sparta.main.model.waitlist.newtrainee;
 
 import com.sparta.main.model.Trainee;
 
