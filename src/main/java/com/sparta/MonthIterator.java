@@ -34,11 +34,11 @@ public class MonthIterator {
                 //add a centre
                 switch (rand.nextInt(0, 3)) {
                     case 0:
-                        centreHolder.addToHolder(new TechCentre(monthTime));
+                        centreHolder.addCentre(new TechCentre(monthTime));
                     case 1:
-                        centreHolder.addToHolder(new TrainingHub(monthTime));
+                        centreHolder.addCentre(new TrainingHub(monthTime));
                     case 2:
-                        centreHolder.addToHolder(new Bootcamp(monthTime));
+                        centreHolder.addCentre(new Bootcamp(monthTime));
                 }
             }
 
