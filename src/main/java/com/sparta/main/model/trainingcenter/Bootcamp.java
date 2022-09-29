@@ -21,6 +21,7 @@ public class Bootcamp extends TrainingCentre {
             closedCounter++;
             return closedCounter > 3;
         }
+        closedCounter = 0;
         return false;
     }
 
