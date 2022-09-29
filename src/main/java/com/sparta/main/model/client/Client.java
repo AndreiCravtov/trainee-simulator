@@ -1,6 +1,7 @@
 package com.sparta.main.model.client;
 
 
+import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
 
 import java.util.ArrayList;
@@ -11,20 +12,19 @@ import java.util.Random;
 public class Client {
 
     Random random = new Random();
-    final String traineeType;
+    final Course traineeType;
     final int traineesRequired;
     List<Trainee> assignedClients = new ArrayList<>();
     boolean happy = false;
 
 
     public Client() {
-        String[] types = new String[] {"JAVA", "C#", "DEV-OPS", "TESTING", "BUSINESS"};
-        this.traineeType = types[random.nextInt(0, types.length - 1)];
+        this.traineeType = Course.getRandomCourse();
         this.traineesRequired = LinearRandom.nextInt(15, 100, 30, 45);
         // put a distribution for the client size requirement
     }
 
-    public String getTraineeType() {
+    public Course getTraineeType() {
         return traineeType;
     }
 
