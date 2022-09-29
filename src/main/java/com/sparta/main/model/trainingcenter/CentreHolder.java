@@ -48,17 +48,32 @@ public class CentreHolder {
     }
 
     /**
+     * Returns a list of trainees which are ready for bench
+     * @return a {@code List} of {@code Trainee}s, if there are any ready for the bench <br>
+     * or {@code null} if no {@code Trainee}s are ready for bench
+     */
+    public List<Trainee> getBenchReadyTrainees() {
+        List<Trainee> readyForBench = new ArrayList<>();
+        for (TrainingCentre centre: centres) {
+            List<Trainee> centreReady = centre.getBenchReadyTrainees();
+            if (centreReady != null) readyForBench.addAll(centreReady);
+        }
+        if (readyForBench.size() > 0) return readyForBench;
+        return null;
+    }
+
+    /**
      * Closes any centres that need to be closed
      * @return a list of trainees that have been displaced, if there are any <br>
      * {@code null} if there aren't any displaced trainees
      */
-    public List<Trainee> closeCentre() {
+    public List<Trainee> closeCentres() {
         List<Trainee> removed = new ArrayList<>();
         List<Trainee> displaced = new ArrayList<>();
 
         for (TrainingCentre centre: centres) {
             if (centre.canBeClosed()) {
-                removed.addAll(centre.getTrainees());
+                removed.addAll(centre.getTrainees().stream().peek(Trainee::abortTraining).toList());
                 centres.remove(centre);
                 if (centre.getClass() == Bootcamp.class) numBootcamp--;
                 removedCentres++;

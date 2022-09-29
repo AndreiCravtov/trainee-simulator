@@ -3,7 +3,6 @@ package com.sparta.main.model.trainingcenter;
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
 import com.sparta.main.model.util.Timeable;
-
 public class TechCentre extends TrainingCentre {
     private final Course course;
 
@@ -32,6 +31,7 @@ public class TechCentre extends TrainingCentre {
     @Override
     public boolean addTrainee(Trainee trainee) {
         if (!canAdd(trainee)) return false;
+        trainee.startTraining();
         return trainees.add(trainee);
     }
 }

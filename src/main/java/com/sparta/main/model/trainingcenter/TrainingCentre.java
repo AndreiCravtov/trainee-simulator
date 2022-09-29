@@ -28,6 +28,22 @@ public abstract class TrainingCentre implements Comparable<TrainingCentre>{
         trainees = new ArrayList<>();
     }
 
+    /**
+     * Returns a list of trainees which are ready for bench
+     * @return a {@code List} of {@code Trainee}s, if there are any ready for the bench <br>
+     * or {@code null} if no {@code Trainee}s are ready for bench
+     */
+    public List<Trainee> getBenchReadyTrainees() {
+        List<Trainee> readyForBench = new ArrayList<>();
+        for (Trainee trainee: trainees)
+            if (trainee.readyForBench()) {
+                trainees.remove(trainee);
+                readyForBench.add(trainee);
+            }
+        if (readyForBench.size() > 0) return readyForBench;
+        return null;
+    }
+
     public abstract boolean canBeClosed();
 
     public abstract boolean canAdd(Trainee trainee);
