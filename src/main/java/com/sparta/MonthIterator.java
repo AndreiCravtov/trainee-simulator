@@ -5,9 +5,7 @@ import com.sparta.main.model.client.Client;
 import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.*;
 import com.sparta.main.model.util.MonthTime;
-import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.posttraining.BenchList;
-import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
+import com.sparta.main.model.waitlist.*;
 
 import java.time.Month;
 import java.util.Random;
@@ -70,8 +68,8 @@ public class MonthIterator {
             }
 
 
-            if ((newTraineeWaitingList.sizeOfWaitingList() != 0) && counter < assignTrainees) {
-                for (Trainee trainee : newTraineeWaitingList.getWaitingList()) {
+            if ((newTraineeWaitingList.sizeOfNewTraineeWaitingList() != 0) && counter < assignTrainees) {
+                for (Trainee trainee : newTraineeWaitingList.getNewTraineeWaitingList()) {
                     if (trainingCentre.canAdd(trainee)){
                         if (centreHolder.assignTrainee(trainee) != null) {
                             newTraineeWaitingList.getFirstInQueue();
