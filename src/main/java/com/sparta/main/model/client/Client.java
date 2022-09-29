@@ -18,7 +18,7 @@ public class Client {
 
     public Client() {
         this.traineeType = Course.getRandomCourse();
-        this.traineesRequired = LinearRandom.nextInt(15, 100, 30, 45);
+        this.traineesRequired = LinearRandom.nextInt(15, 100, 30, 5);
         // put a distribution for the client size requirement
     }
 
