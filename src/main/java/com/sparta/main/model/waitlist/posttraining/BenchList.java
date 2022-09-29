@@ -45,4 +45,12 @@ public class BenchList extends PostTraining{
     public int numberOfBenchedTraineeOfType(Course type) {
         return numberOfTraineeOfType(benchWaitingList, type);
     };
+
+    public Trainee removeBenchedTrainee(Course type) {
+        Trainee foundTrainee = getFirstBenchTraineeByType(type);
+        if (removeTrainee(benchWaitingList,foundTrainee)) {
+            return foundTrainee;
+        }
+        return null;
+    }
 }
