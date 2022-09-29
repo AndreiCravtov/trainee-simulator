@@ -9,8 +9,8 @@ public class TechCentre extends TrainingCentre {
 
     public Course getCourse() { return course; }
 
-    public TechCentre(int id, Timeable timekeeper) {
-        super(id, timekeeper);
+    public TechCentre(Timeable timekeeper) {
+        super(timekeeper);
         course = Course.getRandomCourse();
     }
 
