@@ -14,8 +14,6 @@ public class TrainingView {
     static Logger logger = LogManager.getLogger(Starter.class);
 
     public static boolean getValidBool(String message) {
-
-
         System.out.println(message);
         while (true) {
             try {
@@ -31,7 +29,8 @@ public class TrainingView {
         }
     }
 
-    public static int getMonths(String message) {
+    public static int getMonths(String message) throws IllegalArgumentException{
+        System.out.println(message);
         while (true) {
             try {
                 int userInp = scn.nextInt();
@@ -42,6 +41,7 @@ public class TrainingView {
                 else System.out.println("Enter a number bigger than 1");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                throw new IllegalArgumentException();
             }
         }
     }
