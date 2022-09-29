@@ -9,6 +9,7 @@ import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
 import com.sparta.main.model.waitlist.posttraining.BenchList;
 import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 
+import java.util.List;
 import java.util.Random;
 
 public class MonthIterator {
@@ -92,7 +93,12 @@ public class MonthIterator {
                 }
             }
 
-            centreHolder.closeCentre();
+            List<Trainee> unassignedTrainees = centreHolder.closeCentre();
+            if (unassignedTrainees != null) {
+                for (Trainee unassignedTrainee : unassignedTrainees) {
+                    reassignWaitingList.addReassignTrainee(unassignedTrainee);
+                }
+            }
 
             // Add trainees to clients from bench
             if (monthTime.getTime() > 11 && clientHolder.getClients().size() > 0) {
