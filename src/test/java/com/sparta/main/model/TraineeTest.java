@@ -1,4 +1,4 @@
-package model;
+package com.sparta.main.model;
 
 import com.sparta.main.model.Trainee;
 import org.junit.Test;
