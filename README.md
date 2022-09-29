@@ -146,53 +146,6 @@ public class TrainingHub extends TrainingCentre {
 The `TrainingHub` can hold up to 100 Trainees and each month a random 
 amount, up to 3, can be opened.
 
-## Centre Holder
-```java
-public class CentreHolder {
-    private static int removedCentres;
-    private static CentreHolder instance;
-    static List<TrainingCentre> centres = new ArrayList<>();
-
-    public static CentreHolder getInstance() {
-        if (instance == null)
-            instance = new CentreHolder();
-        return instance;
-    }
-
-    public void assignTrainees(TrainingCentre trainingCentre) {
-        // TrainingCentre tc = class.findAvailableCentre();
-        // tc.addTrainee(WaitingList.queue.remove());
-
-        if (trainingCentre != null) {
-            WaitingList waitingList = NewTraineeWaitingList.getInstance();
-            trainingCentre.getTrainees().add(waitingList.getFirstInQueueByType(WaitingListType.NEWTRAINEE));
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public void addToHolder(TrainingCentre trainingCentre) {
-        centres.add(trainingCentre);
-    }
-
-    public void closeCentre() {
-        for (TrainingCentre tc: centres) {
-            if (tc.canBeClosed()) {
-                centres.remove(tc);
-                removedCentres++;
-            }
-        }
-    }
-
-    public static int getRemovedCentres() { return removedCentres; }
-
-    public static List<TrainingCentre> getCentres() { return centres; }
-
-    public static void addCentre(TrainingCentre trainingCentre) { centres.add(trainingCentre); }
-
-}
-```
-
 ## Trainee
 ```java
 public class Trainee implements Comparable<Trainee> {
@@ -279,6 +232,156 @@ private fields, one is `int traineeId` and the other is an
 used to increment through IDs for trainee so no two trainees 
 can have the same ID. The `createTrainee` method creates a 
 new instance of trainee.
+
+## Centre Holder
+```java
+package com.sparta.main.model.trainingcenter;
+
+import com.sparta.main.model.Trainee;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CentreHolder {
+    private static CentreHolder instance;
+    private final List<TrainingCentre> centres = new ArrayList<>();
+    private int removedCentres;
+
+    public List<TrainingCentre> getCentres() { return centres; }
+
+    public int getRemovedCentres() { return removedCentres; }
+
+    public static CentreHolder getInstance() {
+        if (instance == null)
+            instance = new CentreHolder();
+        return instance;
+    }
+
+    /**
+     * Assigns a trainee to one of the available centres.
+     *
+     * @param trainee the trainee to be assigned
+     * @return {@code null} if the trainee was assigned, <br>
+     * the input {@code Trainee} object if not.
+     */
+    public Trainee assignTrainee(@NotNull Trainee trainee) {
+        for (TrainingCentre centre: centres)
+            if (centre.addTrainee(trainee))
+                return null;
+        return trainee;
+    }
+
+    public boolean canAddCentre(TrainingCentre centre) {
+        return centre != null;
+    }
+
+    public boolean addCentre(TrainingCentre centre) {
+        if (!canAddCentre(centre)) return false;
+        return centres.add(centre);
+    }
+
+    public void closeCentre() {
+        for (TrainingCentre tc: centres) {
+            if (tc.canBeClosed()) {
+                centres.remove(tc);
+                removedCentres++;
+            }
+        }
+    }
+}
+```
+The `CentreHolder` class keeps track of all `centres` that are currently open as well as how many `centres` have been closed.
+The class can add `Trainees` to `centres` and close `centres`.
+
+## Client
+```java
+public class Client {
+    private final Timeable timekeeper;
+    private int yearStart;
+    private final Course course;
+    private final int traineesRequired;
+    private final List<Trainee> assignedTrainees;
+
+    public Course getCourse() { return course; }
+
+    public int getTraineesRequired() { return traineesRequired; }
+
+    public Client(Timeable timekeeper) {
+        this.timekeeper = timekeeper;
+        yearStart = timekeeper.getTime();
+        course = Course.getRandomCourse();
+        traineesRequired = LinearRandom.nextInt(15, 100, 30, 3);
+        assignedTrainees = new ArrayList<>();
+    }
+
+    public boolean isUnhappy() {
+        int elapsed = timekeeper.getTime() - yearStart;
+
+        if (elapsed < 12) return false;
+        if  (elapsed == 12 && assignedTrainees.size() == traineesRequired) { // if happy, restart year
+            yearStart = timekeeper.getTime();
+            assignedTrainees.clear();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean canAdd(Trainee trainee) {
+        return trainee != null &&
+                course == trainee.getCourse() &&
+                assignedTrainees.size() < traineesRequired;
+    }
+
+    public Trainee addTrainee(Trainee trainee) {
+        if (!canAdd(trainee)) return trainee;
+        assignedTrainees.add(trainee);
+        return null;
+    }
+
+}
+```
+The `Client` class represents possible clients of sparta that 
+would take trainees on as consultants. When a `Client` is created 
+it will pick a random number of trainees it will take, this number
+will be in the range of 15 to 100 favouring numbers around 30. If 
+the `Client` has been active for a year and hasn't received the number 
+of trainees it has asked for, that client will become unhappy.
+
+## Client Holder
+```java
+public class ClientHolder {
+
+    private final List<Client> clients;
+    private int unhappyClients = 0;
+
+    public List<Client> getClients() { return clients; }
+    public int getUnhappyClients() { return unhappyClients; }
+
+    public ClientHolder() {
+        clients = new ArrayList<>();
+    }
+
+    public boolean canAdd(Client client) { return client != null; }
+
+    public boolean addClient(Client client) {
+        if (!canAdd(client)) return false;
+        return clients.add(client);
+    }
+
+    public void removeUnhappyClients() {
+        for (Client client: clients) {
+            if (client.isUnhappy()) {
+                clients.remove(client);
+                unhappyClients++;
+            }
+        }
+    }
+}
+```
+The ClientHolder class manages the client objects, it stores all
+currently active clients and can remove clients that are unhappy 
+after a year.
 
 ## Timeable
 ```java
@@ -411,44 +514,105 @@ The `NewTraineeWaitingList` implements the `WaitingList` interface
 and uses a `BlockingQueue` to order the `newTrainingWaitingList` so 
 that newer `Trainees` are placed behind older ones in the que.
 
+## Post Training
+```java
+public abstract class PostTraining {
+
+    public boolean addTrainee(List<Trainee> list, Trainee trainee) {
+        return list.add(trainee);
+    };
+
+    public Trainee getFirstTraineeByType(List<Trainee> list, Course type) {
+        if (type == null) throw new NullPointerException("Course Type cannot be null");
+        Trainee foundTrainee = list.stream()
+                .filter(x -> x.getCourse() == type)
+                .findFirst()
+                .get();
+        return foundTrainee;
+    };
+
+    public boolean removeTrainee(List<Trainee> list, Trainee trainee) {
+        return list.remove(trainee);
+    }
+
+    public Trainee getFirstTrainee(List<Trainee> list) {
+        if (list.size() < 1) return null;
+        return list.get(0);
+    }
+
+    public List<Trainee> getWaitingList(List<Trainee> list) {
+        return list;
+    };
+
+    public int sizeOfWaitingList(List<Trainee> list) {
+        return list.size();
+    };
+
+    public int numberOfTraineeOfType(List<Trainee> list, Course type) {
+        if (type == null) throw new NullPointerException("Course Type cannot be null");
+        int count = (int) list.stream()
+                .filter(x -> x.getCourse() == type)
+                .count();
+        return count;
+    };
+}
+```
 ### Reassign Waiting List
 ```java
-public class ReassignWaitingList implements WaitingList {
+package com.sparta.main.model.waitlist.posttraining;
 
-    public BlockingQueue<Trainee> reassignWaitingList;
-    private static ReassignWaitingList reassignInstance;
+import com.sparta.main.model.Course;
+import com.sparta.main.model.Trainee;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReassignWaitingList extends PostTraining {
+
+    private List<Trainee> reassignWaitingList;
+    private static ReassignWaitingList reassignWaitingListInstance;
 
     private ReassignWaitingList() {
-        this.reassignWaitingList = new LinkedBlockingQueue<>();
+        reassignWaitingList = new ArrayList<Trainee>();
     }
 
     public static ReassignWaitingList getInstance() {
-        if (reassignInstance == null)
-            reassignInstance = new ReassignWaitingList();
-        return reassignInstance;
-    }
-
-    @Override
-    public boolean addTrainee(Trainee trainee) {
-        return reassignWaitingList.offer(trainee);
-    }
-
-    @Override
-    public Trainee getFirstInQueue() {
-        if (reassignWaitingList.size() == 0) {
-            return null;
+        if (reassignWaitingListInstance == null) {
+            reassignWaitingListInstance = new ReassignWaitingList();
         }
-        return reassignWaitingList.poll();
+        return reassignWaitingListInstance;
     }
 
-    @Override
-    public BlockingQueue<Trainee> getWaitingList() {
-        return reassignWaitingList;
+    public boolean addReassignTrainee(Trainee trainee) {
+        return addTrainee(reassignWaitingList,trainee);
+    };
+
+    public Trainee getFirstReassignTraineeByType(Course type) {
+        return getFirstTraineeByType(reassignWaitingList, type);
+    };
+
+    public Trainee getFirstReassignTrainee() {
+        return getFirstTrainee(reassignWaitingList);
     }
 
-    @Override
-    public int sizeOfWaitingList() {
-        return reassignWaitingList.size();
+    public List<Trainee> getReassignWaitingList() {
+        return getWaitingList(reassignWaitingList);
+    };
+
+    public int sizeOfReassignWaitingList() {
+        return sizeOfWaitingList(reassignWaitingList);
+    };
+
+    public int numberOfReassignedTraineeOfType(Course type) {
+        return numberOfTraineeOfType(reassignWaitingList, type);
+    };
+
+    public Trainee removeReassignedTrainee(Course type) {
+        Trainee foundTrainee = getFirstReassignTraineeByType(type);
+        if (removeTrainee(reassignWaitingList,foundTrainee)) {
+            return foundTrainee;
+        }
+        return null;
     }
 }
 ```
@@ -456,3 +620,101 @@ The `ReassignWaitingList` implements the `WaitingList` interface
 and uses a `BlockingQueue` to order the `ReassignWaitingList`. 
 `Trainees`in the `ReassignWaitingList` will be given priority over 
 those in the `newTrainingWaitingList`.
+
+### BenchList
+```java
+public class BenchList extends PostTraining{
+
+    private List<Trainee> benchWaitingList;
+    private static BenchList benchListInstance;
+
+    private BenchList() {
+        benchWaitingList = new ArrayList<Trainee>();
+    }
+
+    public static BenchList getInstance() {
+        if (benchListInstance == null) {
+            benchListInstance = new BenchList();
+        }
+        return benchListInstance;
+    }
+
+    public boolean addBenchTrainee(Trainee trainee) {
+        return addTrainee(benchWaitingList,trainee);
+    };
+
+    public Trainee getFirstBenchTraineeByType(Course type) {
+        return getFirstTraineeByType(benchWaitingList, type);
+    };
+
+    public Trainee getFirstBenchTrainee() {
+        return getFirstTrainee(benchWaitingList);
+    }
+
+    public List<Trainee> getBenchWaitingList() {
+        return getWaitingList(benchWaitingList);
+    };
+
+    public int sizeOfBenchWaitingList() {
+        return sizeOfWaitingList(benchWaitingList);
+    };
+
+    public int numberOfBenchedTraineeOfType(Course type) {
+        return numberOfTraineeOfType(benchWaitingList, type);
+    };
+
+    public Trainee removeBenchedTrainee(Course type) {
+        Trainee foundTrainee = getFirstBenchTraineeByType(type);
+        if (removeTrainee(benchWaitingList,foundTrainee)) {
+            return foundTrainee;
+        }
+        return null;
+    }
+}
+```
+
+## Training view
+```java
+public class TrainingView {
+
+    static Scanner scn = new Scanner(System.in);  // Create a Scanner object
+    static Logger logger = LogManager.getLogger(Starter.class);
+
+    public static boolean getValidBool(String message) {
+
+
+        System.out.println(message);
+        while (true) {
+            try {
+                int i = scn.nextInt();
+                if (i == 0 || i == 1) {
+                    if (i == 0) return false;
+                    else return false;
+                } else System.out.println("Enter 0 or 1");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+
+    public static int getMonths(String message) {
+        while (true) {
+            try {
+                int userInp = scn.nextInt();
+                if (userInp > 2 && userInp < 5000){
+                    logger.log(Level.TRACE, String.format("User decided that %s months will be simulated", userInp));
+                    return userInp;
+                }
+                else System.out.println("Enter a number bigger than 1");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+}
+```
+The `TrainingView` class 
+
+## 
