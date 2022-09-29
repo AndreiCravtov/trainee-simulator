@@ -75,6 +75,19 @@ public class BenchWaitingListTest {
         Assertions.assertNull(testWaitingList.getFirstBenchTrainee());
     }
 
+    @Test
+    public void waitingList_numberOfTrainees_ByType() {
+        testWaitingList.addBenchTrainee(testTrainee2);
+        testWaitingList.addBenchTrainee(testTrainee1);
+        Course trainee1course = testTrainee1.getCourse();
+        if (trainee1course == testTrainee2.getCourse()) {
+            Assertions.assertEquals(2, testWaitingList.numberOfBenchedTraineeOfType(trainee1course));
+        }
+        else {
+            Assertions.assertEquals(1, testWaitingList.numberOfBenchedTraineeOfType(trainee1course));
+        }
+    }
+
     @AfterEach
     public void setdown() {
         int size = testWaitingList.sizeOfBenchWaitingList();
