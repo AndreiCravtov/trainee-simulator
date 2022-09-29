@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TrainingCentre {
+
+    protected static int idCounter=0;
     protected static int LOCAL_GRACE_PERIOD = 1;
     protected final int id;
     protected Timeable timekeeper;
@@ -19,8 +21,8 @@ public abstract class TrainingCentre {
 
     public List<Trainee> getTrainees() { return trainees; }
 
-    public TrainingCentre(int id, Timeable timekeeper) {
-        this.id = id;
+    public TrainingCentre(Timeable timekeeper) {
+        this.id = idCounter++;
         this.timekeeper = timekeeper;
         timeCreated = timekeeper.getTime();
         trainees = new ArrayList<>();
