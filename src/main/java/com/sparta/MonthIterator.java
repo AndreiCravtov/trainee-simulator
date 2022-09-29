@@ -47,7 +47,7 @@ public class MonthIterator {
             if (month >= 12) {
                 if (rand.nextInt(0, 2) == 0) {
                     // create a client
-                    clientHolder.addClient(new Client());
+                    clientHolder.addClient(new Client(MonthTime.getInstance()));
                 }
             }
 
