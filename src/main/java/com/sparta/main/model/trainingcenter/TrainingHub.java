@@ -4,8 +4,8 @@ import com.sparta.main.model.util.Timeable;
 import com.sparta.main.model.Trainee;
 
 public class TrainingHub extends TrainingCentre {
-    public TrainingHub(int id, Timeable timeable) {
-        super(id, timeable);
+    public TrainingHub(Timeable timeable) {
+        super(timeable);
     }
 
     @Override

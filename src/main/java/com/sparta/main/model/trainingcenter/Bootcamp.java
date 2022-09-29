@@ -6,8 +6,8 @@ import com.sparta.main.model.util.Timeable;
 public class Bootcamp extends TrainingCentre {
     private int closedCounter = 0;
 
-    public Bootcamp(int id, Timeable timekeeper) {
-        super(id,timekeeper);
+    public Bootcamp(Timeable timekeeper) {
+        super(timekeeper);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class Bootcamp extends TrainingCentre {
                 trainees.size() < 25)
         {
             closedCounter++;
-            return closedCounter == 4;
+            return closedCounter > 3;
         }
         return false;
     }

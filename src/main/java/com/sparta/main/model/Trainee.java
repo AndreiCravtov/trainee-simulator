@@ -2,12 +2,8 @@ package com.sparta.main.model;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class Trainee implements Comparable<Trainee> {
-
-    static int idCount=0;
-
+    private static int idCount = 0;
     private final int traineeId;
     private final Course course;
 
@@ -15,9 +11,9 @@ public class Trainee implements Comparable<Trainee> {
 
     public Course getCourse() { return course; }
 
-    public Trainee(int traineeId, @NotNull Course course) {
-        this.traineeId = idCount++;
-        this.course = Course.getRandomCourse();
+    public Trainee() {
+        traineeId = idCount++;
+        course = Course.getRandomCourse();
     }
 
     /**
@@ -59,7 +55,7 @@ public class Trainee implements Comparable<Trainee> {
     }
 
     @Override
-    public int compareTo(@NotNull Trainee o) {
-        return (this.traineeId - o.traineeId);
+    public int compareTo(@NotNull Trainee trainee) {
+        return Integer.compare(traineeId, trainee.traineeId);
     }
 }
