@@ -4,7 +4,7 @@ import com.sparta.main.model.Trainee;
 import com.sparta.main.model.util.Timeable;
 
 public class Bootcamp extends TrainingCentre {
-    int closedCounter = 0;
+    private int closedCounter = 0;
 
     public Bootcamp(int id, Timeable timekeeper) {
         super(id,timekeeper);
@@ -12,9 +12,12 @@ public class Bootcamp extends TrainingCentre {
 
     @Override
     public boolean canBeClosed() {
-        if(!timekeeper.inGlobalGracePeriod() &&
+        //increment timer, if it is under 25
+        if(
+                !timekeeper.inGlobalGracePeriod() &&
                 (timekeeper.getTime() - timeCreated) > LOCAL_GRACE_PERIOD &&
-                trainees.size() < 25){
+                trainees.size() < 25)
+        {
             closedCounter++;
             return closedCounter == 4;
         }
