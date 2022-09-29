@@ -2,7 +2,6 @@ package com.sparta;
 
 import com.sparta.main.view.TrainingView;
 
-
 public class Starter {
 
     public static void start() {

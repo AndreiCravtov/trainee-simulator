@@ -1,5 +1,6 @@
-package com.sparta.main.model;
+package com.sparta.main.model.waitlist;
 
+import com.sparta.main.model.Trainee;
 import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

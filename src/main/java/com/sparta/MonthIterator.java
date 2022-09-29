@@ -6,6 +6,7 @@ import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.*;
 import com.sparta.main.model.util.MonthTime;
 import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
+import com.sparta.main.model.waitlist.posttraining.BenchList;
 import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 
 import java.util.Random;
@@ -20,25 +21,25 @@ public class MonthIterator {
         CentreHolder centreHolder = CentreHolder.getInstance();
         ClientHolder clientHolder= new ClientHolder();
         ReassignWaitingList reassignWaitingList = ReassignWaitingList.getInstance();
-        NewTraineeWaitingList newTraineeWaitingList=NewTraineeWaitingList.getInstance();
-
+        NewTraineeWaitingList newTraineeWaitingList = NewTraineeWaitingList.getInstance();
+        BenchList benchWaitingList = BenchList.getInstance();
 
         int extraTrainees;
 
-
         MonthTime monthTime = MonthTime.getInstance();
 
-        while(monthTime.getTime()<24){
+        while(monthTime.getTime() < months){
+            System.out.println("Loop: " + monthTime.getTime());
             int month=monthTime.getTime();
             if (month % 2 == 0) {
                 //add a centre
                 switch (rand.nextInt(0, 3)) {
                     case 0:
-                        centreHolder.addToHolder(new TechCentre(monthTime));
+                        centreHolder.addCentre(new TechCentre(monthTime));
                     case 1:
-                        centreHolder.addToHolder(new TrainingHub(monthTime));
+                        centreHolder.addCentre(new TrainingHub(monthTime));
                     case 2:
-                        centreHolder.addToHolder(new Bootcamp(monthTime));
+                        centreHolder.addCentre(new Bootcamp(monthTime));
                 }
             }
 
@@ -54,25 +55,25 @@ public class MonthIterator {
 
             //add trainees
             extraTrainees = rand.nextInt(51);
-            for (int j = 50; j < extraTrainees + 50; j++) {
+            for (int j = 0; j < extraTrainees + 50; j++) {
                 newTraineeWaitingList.addTrainee(new Trainee());
             }
 
 
             int assignTrainees;
+
             //assign trainees + check if centre needs to be closed
             for (TrainingCentre trainingCentre : centreHolder.getCentres()) {
                 assignTrainees = rand.nextInt(51);
 
-
                 int counter=0;
-
 
                 if ((reassignWaitingList.sizeOfReassignWaitingList()!= 0) && counter < assignTrainees) {
                     for (Trainee trainee : reassignWaitingList.getReassignWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
-                            trainingCentre.addTrainee((trainee));
-                            //need to remove the trainee
+                            if (centreHolder.assignTrainee(trainee) != null) {
+                                reassignWaitingList.removeReassignedTrainee(trainee);
+                            };
                             counter++;
                         }
                     }
@@ -82,24 +83,31 @@ public class MonthIterator {
                 if ((newTraineeWaitingList.sizeOfWaitingList() != 0) && counter < assignTrainees) {
                     for (Trainee trainee : newTraineeWaitingList.getWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
-                            trainingCentre.addTrainee((trainee));
-                            //need to remove the trainee
+                            if (centreHolder.assignTrainee(trainee) != null) {
+                                newTraineeWaitingList.getFirstInQueue();
+                            };
                             counter++;
                         }
                     }
                 }
+            }
 
+            centreHolder.closeCentre();
 
-
-
-                //check if centre needs to be closed
-                if (trainingCentre.canBeClosed()) ; //close training centre
-
-
+            // Add trainees to clients from bench
+            if (monthTime.getTime() > 11 && clientHolder.getClients().size() > 0) {
+                for (Trainee trainee : benchWaitingList.getBenchWaitingList()) {
+                    for (Client client : clientHolder.getClients()) {
+                        if (client.canAdd(trainee)) {
+                            client.addTrainee(trainee);
+                        }
+                    }
+                }
             }
 
             monthTime.incrementMonth();
         }
+        System.out.println("Finished");
     }
 
 }

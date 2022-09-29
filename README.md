@@ -393,6 +393,131 @@ The ClientHolder class manages the client objects, it stores all
 currently active clients and can remove clients that are unhappy 
 after a year.
 
+## Linear Random
+```java
+public class LinearRandom {
+    private static Random random = new Random();
+
+    /**
+     * Returns a pseudorandomly chosen {@code int} value between the
+     * specified {@code lower} and {@code higher} bounds (inclusive).
+     * The chosen {@code int} is linearly distributed towards a {@code bias}.
+     * The {@code bias} must fall in between the {@code lower} and {@code upper}.
+     * If it falls outside the range, it clips back to the respective edge of the range.
+     * The value of {@code skew} must be at least 1. If it isn't, it will default to 1.
+     *
+     * @param lower the least value that can be returned
+     * @param higher the most value that can be returned
+     * @param bias the random numbers generated tend towards this number
+     * @param skew the amount by which random numbers tend towards the {@code bias}. For a uniform distribution, {@code skew = 1}
+     * @return a pseudorandomly chosen {@code int} value between the
+     * {@code lower} and {@code higher} bounds (inclusive).
+     */
+     public static int nextInt(int lower, int higher, int bias, int skew) {
+         // make sure parameters are appropriate
+         if (lower > higher)
+             higher = lower;
+         if (bias < lower)
+             bias = lower;
+         if (bias > higher)
+             bias = higher;
+         if (skew < 1)
+             skew = 1;
+
+         Map<Integer, Integer> rand = new HashMap<>();
+         for (int i=0; i<skew; i++) {
+             int randVal = random.nextInt(lower, higher+1);
+             int distVal = Math.abs(bias - randVal);
+             rand.put(distVal, randVal);
+         }
+         return rand.get(Collections.min(rand.keySet()));
+    }
+}
+```
+
+## Loop
+```java
+package com.sparta.main.model.util;
+
+/**
+ * A class to abstract away running a loop. Whatever functionality is passed to it, will be run in a loop.
+ */
+public class Loop implements Runnable {
+
+    /**
+     * The empty anonymous function that the {@code Loop} runs
+     */
+    public interface Function {
+        /**
+         * The method to run the provided function
+         */
+        void run();
+    }
+
+    private final Function function;
+    private int numLoops;
+    private int loopExecutionTime;
+
+    public int getNumLoops() { return numLoops; }
+
+    public int getLoopExecutionTime() { return loopExecutionTime; }
+
+    public void setNumLoops(int numLoops) { this.numLoops = numLoops; }
+
+    public void setLoopExecutionTime(int loopExecutionTime) { this.loopExecutionTime = loopExecutionTime; }
+
+    /**
+     * Creates a main loop object which executes a given function in a loop.
+     *
+     * @param function the function to run
+     */
+    public Loop(Function function) {
+        this.function = function;
+        numLoops = 0;
+        loopExecutionTime = 0;
+    }
+
+    /**
+     * Creates a main loop object which executes a given function in a loop, for a given number of times.
+     *
+     * @param function the function to run
+     * @param numLoops the number of times to run the function
+     */
+    public Loop(Function function, int numLoops) {
+        this.function = function;
+        this.numLoops = numLoops;
+        loopExecutionTime = 0;
+    }
+
+    /**
+     * Creates a main loop object which executes a given function in a loop, for a given number of times.
+     *
+     * @param function the function to run
+     * @param numLoops the number of times to run the function
+     * @param loopExecutionTime the time each loop should execute for (in ms)
+     */
+    public Loop(Function function, int numLoops, int loopExecutionTime) {
+        this.function = function;
+        this.numLoops = numLoops;
+        this.loopExecutionTime = loopExecutionTime;
+    }
+
+    /**
+     * Runs the main loop as defined in the constructor.
+     */
+    @Override
+    public void run() {
+        for (int i=0; i<numLoops; i++) {
+            long start = System.currentTimeMillis();
+            function.run();
+            long end = System.currentTimeMillis();
+            try { Thread.sleep(loopExecutionTime - (end - start)); }
+            catch (Exception ignored) {}
+        }
+    }
+}
+```
+
 ## Timeable
 ```java
 public interface Timeable {
@@ -626,10 +751,10 @@ public class ReassignWaitingList extends PostTraining {
     }
 }
 ```
-The `ReassignWaitingList` implements the `WaitingList` interface
+~~The `ReassignWaitingList` implements the `WaitingList` interface
 and uses a `BlockingQueue` to order the `ReassignWaitingList`. 
 `Trainees`in the `ReassignWaitingList` will be given priority over 
-those in the `newTrainingWaitingList`.
+those in the `newTrainingWaitingList`.~~
 
 ### BenchList
 ```java
@@ -691,8 +816,6 @@ public class TrainingView {
     static Logger logger = LogManager.getLogger(Starter.class);
 
     public static boolean getValidBool(String message) {
-
-
         System.out.println(message);
         while (true) {
             try {
@@ -708,7 +831,8 @@ public class TrainingView {
         }
     }
 
-    public static int getMonths(String message) {
+    public static int getMonths(String message) throws IllegalArgumentException{
+        System.out.println(message);
         while (true) {
             try {
                 int userInp = scn.nextInt();
@@ -719,12 +843,38 @@ public class TrainingView {
                 else System.out.println("Enter a number bigger than 1");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                throw new IllegalArgumentException();
             }
         }
     }
 
 }
 ```
-The `TrainingView` class 
+The `TrainingView` class has two methods, one called `getValidBool` 
+that takes in a user input to answer a yes or no question. The other 
+method is called `getMonths` and it is used to select how long the
+simulation will be running for in months. The simulation need to run
+for at least 2 months and at most 4999 months.
 
-## 
+## View Status
+```java
+public class ViewStatus {
+    public static void viewStatus(){
+
+        if (TrainingView.getValidBool("Would you like to print the status?")){
+            System.out.println("Centres in use:  "+ CentreHolder.getInstance().getCentres());
+        }
+    }
+
+}
+```
+The `ViewStatus` class checks if a user wants to see the `centres`
+in `CentreHolder` and if so displays them.
+
+
+
+## Month Iterator
+
+## Starter
+
+## Main
