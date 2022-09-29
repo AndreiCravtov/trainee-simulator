@@ -1,20 +1,33 @@
 package com.sparta.main.model;
 
+import com.sparta.main.model.util.Timeable;
 import org.jetbrains.annotations.NotNull;
 
 public class Trainee implements Comparable<Trainee> {
     private static int idCount = 0;
+
+    private final Timeable timekeeper;
     private final int traineeId;
     private final Course course;
+
+    private int trainingStart = -1;
 
     public int getId() { return traineeId; }
 
     public Course getCourse() { return course; }
 
-    public Trainee() {
+    public boolean isTraining() { return trainingStart != -1; }
+    public void abortTraining() { trainingStart = -1; }
+
+    public Trainee(Timeable timekeeper) {
+        this.timekeeper = timekeeper;
         traineeId = idCount++;
         course = Course.getRandomCourse();
     }
+
+    public void startTraining() { trainingStart = timekeeper.getTime(); }
+
+    public boolean readyForBench() { return timekeeper.getTime() - trainingStart > 3; }
 
     /**
      * This method serializes the trainee object.
