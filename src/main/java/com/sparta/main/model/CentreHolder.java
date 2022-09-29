@@ -3,6 +3,7 @@ package com.sparta.main.model;
 import com.sparta.main.model.waitlist.NewTraineeWaitingList;
 import com.sparta.main.model.waitlist.WaitingList;
 import com.sparta.main.model.trainingcenter.TrainingCentre;
+import com.sparta.main.model.waitlist.WaitingListType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CentreHolder {
 
         if (trainingCentre != null) {
             WaitingList waitingList = NewTraineeWaitingList.getInstance();
-            trainingCentre.getTrainees().add(waitingList.getFirstInQueue());
+            trainingCentre.getTrainees().add(waitingList.getFirstInQueueByType(WaitingListType.NEWTRAINEE));
         } else {
             throw new IllegalArgumentException();
         }
