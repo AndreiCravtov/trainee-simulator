@@ -1,5 +1,6 @@
 package com.sparta.main.model;
 
+import com.sparta.main.model.trainingcenter.CentreHolder;
 import com.sparta.main.model.trainingcenter.TechCentre;
 import com.sparta.main.model.trainingcenter.TrainingCentre;
 import com.sparta.main.model.util.MonthTime;

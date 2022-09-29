@@ -1,4 +1,4 @@
-package com.sparta.main.model.client;
+package com.sparta.main.model.util;
 
 import java.util.*;
 
