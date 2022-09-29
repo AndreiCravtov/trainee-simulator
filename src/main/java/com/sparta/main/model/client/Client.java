@@ -3,6 +3,7 @@ package com.sparta.main.model.client;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
+import com.sparta.main.model.util.LinearRandom;
 
 import java.util.ArrayList;
 import java.util.List;
