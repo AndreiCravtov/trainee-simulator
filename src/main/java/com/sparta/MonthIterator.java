@@ -6,11 +6,11 @@ import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.*;
 import com.sparta.main.model.util.MonthTime;
 import com.sparta.main.model.waitlist.newtrainee.NewTraineeWaitingList;
-import com.sparta.main.model.waitlist.reassign.ReassignWaitingList;
+import com.sparta.main.model.waitlist.posttraining.ReassignWaitingList;
 
 import java.util.Random;
 
-public class MonthInterator {
+public class MonthIterator {
 
 
     public static void monthIterate(int months){
@@ -68,8 +68,8 @@ public class MonthInterator {
                 int counter=0;
 
 
-                if ((reassignWaitingList.sizeOfWaitingList() != 0) && counter < assignTrainees) {
-                    for (Trainee trainee : reassignWaitingList.getWaitingList()) {
+                if ((reassignWaitingList.sizeOfReassignWaitingList()!= 0) && counter < assignTrainees) {
+                    for (Trainee trainee : reassignWaitingList.getReassignWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
                             trainingCentre.addTrainee((trainee));
                             //need to remove the trainee
