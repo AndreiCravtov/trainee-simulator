@@ -15,18 +15,24 @@ There simulation has 3 types of training centres, all of which
 are subclasses of the abstract class `TrainingCentre`.
 ### Abstract class
 ```java
-public abstract class TrainingCentre {
-    private final int centerID;
-    private final List<Trainee> trainees;
+public abstract class TrainingCentre implements Comparable<TrainingCentre>{
+    protected static int LOCAL_GRACE_PERIOD = 1;
+    private static int idCount = 0;
+    protected final int id;
+    protected Timeable timekeeper;
+    protected int timeCreated;
+    protected final List<Trainee> trainees;
 
-    private boolean open;
+    public int getId() { return id; }
 
-    public int getCenterID() { return centerID; }
+    public int getTimeCreated() { return timeCreated; }
 
     public List<Trainee> getTrainees() { return trainees; }
 
-    public TrainingCentre(int centerID) {
-        this.centerID = centerID;
+    public TrainingCentre(Timeable timekeeper) {
+        this.timekeeper = timekeeper;
+        id = idCount++;
+        timeCreated = timekeeper.getTime();
         trainees = new ArrayList<>();
     }
 
@@ -35,29 +41,33 @@ public abstract class TrainingCentre {
     public abstract boolean canAdd(Trainee trainee);
 
     public abstract boolean addTrainee(Trainee trainee);
+    
+    ...
 }
 ```
-The abstract class has an `int CenterID` a `List<Trainee> trainees` 
-and a `boolean open`. It also has 3 abstract boolean methods 
+The abstract class has an `int id`, a `Timeable timekeeper`, an `int timeCreated` and a `List<Trainee> trainees`. It also has 3 abstract boolean methods 
 called `canBeClosed`, `canAdd`, and `addTrainee`.
 ### Bootcamp
 ```java
 public class Bootcamp extends TrainingCentre {
-    int closedCounter = 0;
+    private int closedCounter = 0;
 
-    public Bootcamp(int id, Timeable timekeeper) {
-        super(id,timekeeper);
+    public Bootcamp(Timeable timekeeper) {
+        super(timekeeper);
     }
 
     @Override
     public boolean canBeClosed() {
         //increment timer, if it is under 25
-        if(!timekeeper.inGlobalGracePeriod() &&
+        if(
+                !timekeeper.inGlobalGracePeriod() &&
                 (timekeeper.getTime() - timeCreated) > LOCAL_GRACE_PERIOD &&
-                trainees.size() < 25){
+                trainees.size() < 25)
+        {
             closedCounter++;
-            return closedCounter == 3;
+            return closedCounter > 3;
         }
+        closedCounter = 0;
         return false;
     }
 
@@ -683,11 +693,13 @@ public abstract class PostTraining {
 }
 ```
 ### Reassign Waiting List
+
 ```java
 package com.sparta.main.model.waitlist.posttraining;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
+import com.sparta.main.model.waitlist.PostTraining;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -709,12 +721,16 @@ public class ReassignWaitingList extends PostTraining {
     }
 
     public boolean addReassignTrainee(Trainee trainee) {
-        return addTrainee(reassignWaitingList,trainee);
-    };
+        return addTrainee(reassignWaitingList, trainee);
+    }
+
+    ;
 
     public Trainee getFirstReassignTraineeByType(Course type) {
         return getFirstTraineeByType(reassignWaitingList, type);
-    };
+    }
+
+    ;
 
     public Trainee getFirstReassignTrainee() {
         return getFirstTrainee(reassignWaitingList);
@@ -722,19 +738,25 @@ public class ReassignWaitingList extends PostTraining {
 
     public List<Trainee> getReassignWaitingList() {
         return getWaitingList(reassignWaitingList);
-    };
+    }
+
+    ;
 
     public int sizeOfReassignWaitingList() {
         return sizeOfWaitingList(reassignWaitingList);
-    };
+    }
+
+    ;
 
     public int numberOfReassignedTraineeOfType(Course type) {
         return numberOfTraineeOfType(reassignWaitingList, type);
-    };
+    }
+
+    ;
 
     public Trainee removeReassignedTrainee(Course type) {
         Trainee foundTrainee = getFirstReassignTraineeByType(type);
-        if (removeTrainee(reassignWaitingList,foundTrainee)) {
+        if (removeTrainee(reassignWaitingList, foundTrainee)) {
             return foundTrainee;
         }
         return null;

@@ -9,7 +9,8 @@ import java.util.List;
 public class CentreHolder {
     private static CentreHolder instance;
     private final List<TrainingCentre> centres = new ArrayList<>();
-    private int removedCentres;
+    private int numBootcamp = 0;
+    private int removedCentres = 0;
 
     public List<TrainingCentre> getCentres() { return centres; }
 
@@ -36,20 +37,38 @@ public class CentreHolder {
     }
 
     public boolean canAddCentre(TrainingCentre centre) {
-        return centre != null;
+        if (centre == null) return false;
+        return centre.getClass() != Bootcamp.class || numBootcamp < 2;
     }
 
     public boolean addCentre(TrainingCentre centre) {
         if (!canAddCentre(centre)) return false;
+        if (centre.getClass() == Bootcamp.class) numBootcamp++;
         return centres.add(centre);
     }
 
-    public void closeCentre() {
-        for (TrainingCentre tc: centres) {
-            if (tc.canBeClosed()) {
-                centres.remove(tc);
+    /**
+     * Closes any centres that need to be closed
+     * @return a list of trainees that have been displaced, if there are any <br>
+     * {@code null} if there aren't any displaced trainees
+     */
+    public List<Trainee> closeCentre() {
+        List<Trainee> removed = new ArrayList<>();
+        List<Trainee> displaced = new ArrayList<>();
+
+        for (TrainingCentre centre: centres) {
+            if (centre.canBeClosed()) {
+                removed.addAll(centre.getTrainees());
+                centres.remove(centre);
+                if (centre.getClass() == Bootcamp.class) numBootcamp--;
                 removedCentres++;
             }
         }
+
+        for (Trainee trainee: removed)
+            if (assignTrainee(trainee) != null)
+                displaced.add(trainee);
+        if (displaced.size() > 0) return displaced;
+        return null;
     }
 }
