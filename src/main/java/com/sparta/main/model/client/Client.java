@@ -10,7 +10,7 @@ public class Client {
 
     public Client() {
         Random random = new Random();
-        this.traineesRequired = random.nextInt(15, 100);
+        this.traineesRequired = random.nextInt(15, 100);// is this
     }
 
     public void makeRequirements() {

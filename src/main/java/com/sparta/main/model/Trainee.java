@@ -11,19 +11,13 @@ public class Trainee implements Comparable<Trainee> {
     private final int traineeId;
     private final Course course;
 
-    public static Trainee createTrainee(){
-
-        return new Trainee(idCount++ , Course.getRandomCourse()); // make this give random course
-    }
-
-
     public int getId() { return traineeId; }
 
     public Course getCourse() { return course; }
 
     public Trainee(int traineeId, @NotNull Course course) {
-        this.traineeId = traineeId;
-        this.course = course;
+        this.traineeId = idCount++;
+        this.course = Course.getRandomCourse();
     }
 
     /**
