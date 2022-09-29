@@ -1,15 +1,12 @@
 package com.sparta;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.sparta.main.view.TrainingView;
 
 public class Starter {
 
-    public static Logger logger = LogManager.getLogger(Starter.class);
-
     public static void start() {
 
-        int months=24;
+        int months= TrainingView.getMonths("Enter the number of months you'd like for the simulation to run for.");
 
         MonthIterator.monthIterate(months);
 
