@@ -13,7 +13,7 @@ import java.util.Random;
 public class MonthIterator {
 
 
-    public static void monthIterate(int months){
+    public static void monthIterate(int months) {
 
         Random rand = new Random();
 
@@ -47,7 +47,7 @@ public class MonthIterator {
             if (month >= 12) {
                 if (rand.nextInt(0, 2) == 0) {
                     // create a client
-                    clientHolder.addClient(new Client());
+                    clientHolder.addClient(new Client(monthTime));
                 }
             }
 
@@ -59,7 +59,10 @@ public class MonthIterator {
             }
 
 
-            int assignTrainees;
+            int assignTrainees = ;
+
+
+
             //assign trainees + check if centre needs to be closed
             for (TrainingCentre trainingCentre : centreHolder.getCentres()) {
                 assignTrainees = rand.nextInt(51);
