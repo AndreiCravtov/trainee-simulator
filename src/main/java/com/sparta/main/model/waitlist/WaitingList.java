@@ -3,7 +3,6 @@ package com.sparta.main.model.waitlist;
 import com.sparta.main.model.Trainee;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public abstract class WaitingList {
 
