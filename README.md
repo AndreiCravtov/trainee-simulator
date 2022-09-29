@@ -43,23 +43,35 @@ called `canBeClosed`, `canAdd`, and `addTrainee`.
 ### Bootcamp
 ```java
 public class Bootcamp extends TrainingCentre {
-    public Bootcamp(int centerID) {
-        super(centerID);
+    int closedCounter = 0;
+
+    public Bootcamp(int id, Timeable timekeeper) {
+        super(id,timekeeper);
     }
 
     @Override
     public boolean canBeClosed() {
+        //increment timer, if it is under 25
+        if(!timekeeper.inGlobalGracePeriod() &&
+                (timekeeper.getTime() - timeCreated) > LOCAL_GRACE_PERIOD &&
+                trainees.size() < 25){
+            closedCounter++;
+            return closedCounter == 3;
+        }
         return false;
     }
 
     @Override
     public boolean canAdd(Trainee trainee) {
-        return false;
+        return trainee != null &&
+                trainees.size() < 500 &&
+                !trainees.contains(trainee);
     }
 
     @Override
     public boolean addTrainee(Trainee trainee) {
-        return false;
+        if(!canAdd(trainee)) return false;
+        return trainees.add(trainee);
     }
 }
 ```
@@ -133,6 +145,53 @@ public class TrainingHub extends TrainingCentre {
 ```
 The `TrainingHub` can hold up to 100 Trainees and each month a random 
 amount, up to 3, can be opened.
+
+## Centre Holder
+```java
+public class CentreHolder {
+    private static int removedCentres;
+    private static CentreHolder instance;
+    static List<TrainingCentre> centres = new ArrayList<>();
+
+    public static CentreHolder getInstance() {
+        if (instance == null)
+            instance = new CentreHolder();
+        return instance;
+    }
+
+    public void assignTrainees(TrainingCentre trainingCentre) {
+        // TrainingCentre tc = class.findAvailableCentre();
+        // tc.addTrainee(WaitingList.queue.remove());
+
+        if (trainingCentre != null) {
+            WaitingList waitingList = NewTraineeWaitingList.getInstance();
+            trainingCentre.getTrainees().add(waitingList.getFirstInQueueByType(WaitingListType.NEWTRAINEE));
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void addToHolder(TrainingCentre trainingCentre) {
+        centres.add(trainingCentre);
+    }
+
+    public void closeCentre() {
+        for (TrainingCentre tc: centres) {
+            if (tc.canBeClosed()) {
+                centres.remove(tc);
+                removedCentres++;
+            }
+        }
+    }
+
+    public static int getRemovedCentres() { return removedCentres; }
+
+    public static List<TrainingCentre> getCentres() { return centres; }
+
+    public static void addCentre(TrainingCentre trainingCentre) { centres.add(trainingCentre); }
+
+}
+```
 
 ## Trainee
 ```java
