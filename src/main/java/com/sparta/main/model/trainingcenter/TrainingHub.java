@@ -25,6 +25,7 @@ public class TrainingHub extends TrainingCentre {
     @Override
     public boolean addTrainee(Trainee trainee) {
         if (!canAdd(trainee)) return false;
+        trainee.startTraining();
         return trainees.add(trainee);
     }
 }
