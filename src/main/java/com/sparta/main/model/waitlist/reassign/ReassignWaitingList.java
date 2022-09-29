@@ -9,11 +9,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public abstract class ReassignWaitingList  {
 
-    protected static BlockingQueue<Trainee> javaWaitingList;
-    protected static BlockingQueue<Trainee> cWaitingList;
-    protected static BlockingQueue<Trainee> dataWaitingList;
-    protected static BlockingQueue<Trainee> devopsWaitingList;
-    protected static BlockingQueue<Trainee> businessWaitingList;
+    protected BlockingQueue<Trainee> javaWaitingList;
+    protected BlockingQueue<Trainee> cWaitingList;
+    protected BlockingQueue<Trainee> dataWaitingList;
+    protected BlockingQueue<Trainee> devopsWaitingList;
+    protected BlockingQueue<Trainee> businessWaitingList;
 
     public boolean addTraineeByType(Trainee trainee, Course type) {
         if (type == null) throw new NullPointerException("Course Type cannot be null");
