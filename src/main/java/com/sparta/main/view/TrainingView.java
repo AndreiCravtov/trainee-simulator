@@ -20,7 +20,7 @@ public class TrainingView {
                 int i = scn.nextInt();
                 if (i == 0 || i == 1) {
                     if (i == 0) return false;
-                    else return false;
+                    else return true;
                 } else System.out.println("Enter 0 or 1");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -34,17 +34,17 @@ public class TrainingView {
         while (true) {
             try {
                 int userInp = scn.nextInt();
-                if (userInp > 2 && userInp < 5000){
+                if (userInp >2 && userInp < 5000){
                     logger.log(Level.TRACE, String.format("User decided that %s months will be simulated", userInp));
                     return userInp;
                 }
-                else System.out.println("Enter a number bigger than 2");
+                else System.out.println("Enter a number bigger than 2, less than 5000");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                throw new IllegalArgumentException();
+                logger.info(e);
+                System.out.println("Please enter an integer");
+                scn.nextLine();
             }
         }
     }
-
 }
 

@@ -8,8 +8,11 @@ public class Starter {
 
         int months= TrainingView.getMonths("Enter the number of months you'd like for the simulation to run for.");
 
+        System.out.println("Starting");
         MonthIterator monthIterator=new MonthIterator();
 
-        monthIterator.monthIterate(24);
+        monthIterator.monthIterate(months);
+
+
     }
 }
