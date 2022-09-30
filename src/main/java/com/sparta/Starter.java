@@ -2,6 +2,7 @@ package com.sparta;
 
 import com.sparta.main.view.DisplayManager;
 import com.sparta.main.view.TrainingView;
+import com.sparta.main.view.ViewStatus;
 
 public class Starter {
 
@@ -16,6 +17,10 @@ public class Starter {
 
         monthIterator.monthIterate(months,bool);
 
+        bool= TrainingView.getValidBool("Press 1 if you would like to get status");
+        if (bool){
+            ViewStatus.viewFinalStatus();
+        }
 
 
     }
