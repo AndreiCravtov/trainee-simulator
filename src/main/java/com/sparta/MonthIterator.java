@@ -81,11 +81,11 @@ public class MonthIterator {
                 }
 
 
-                if ((newTraineeWaitingList.sizeOfWaitingList() != 0) && counter < assignTrainees) {
-                    for (Trainee trainee : newTraineeWaitingList.getWaitingList()) {
+                if ((newTraineeWaitingList.sizeOfNewTraineeWaitingList() != 0) && counter < assignTrainees) {
+                    for (Trainee trainee : newTraineeWaitingList.getNewTraineeWaitingList()) {
                         if (trainingCentre.canAdd(trainee)){
                             if (centreHolder.assignTrainee(trainee) != null) {
-                                newTraineeWaitingList.getFirstInQueue();
+                                newTraineeWaitingList.removeNewTrainee();
                             };
                             counter++;
                         }
