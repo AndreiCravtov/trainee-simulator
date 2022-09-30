@@ -38,7 +38,7 @@ public class TrainingView {
                     logger.log(Level.TRACE, String.format("User decided that %s months will be simulated", userInp));
                     return userInp;
                 }
-                else System.out.println("Enter a number bigger than 1");
+                else System.out.println("Enter a number bigger than 2");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 throw new IllegalArgumentException();
