@@ -6,7 +6,7 @@ import com.sparta.main.model.Trainee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BenchList extends PostTraining{
+public class BenchList extends WaitingList {
 
     private List<Trainee> benchWaitingList;
     private static BenchList benchListInstance;
