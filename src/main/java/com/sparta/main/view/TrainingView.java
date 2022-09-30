@@ -29,7 +29,7 @@ public class TrainingView {
         }
     }
 
-    public static int getMonths(String message) throws IllegalArgumentException{
+    public static int getMonths(String message) {
         System.out.println(message);
         while (true) {
             try {
