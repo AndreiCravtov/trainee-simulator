@@ -4,6 +4,8 @@ import com.sparta.main.view.DisplayManager;
 import com.sparta.main.view.TrainingView;
 import com.sparta.main.view.ViewStatus;
 
+import java.util.ArrayList;
+
 public class Starter {
 
     public static void start() {
@@ -15,13 +17,11 @@ public class Starter {
         System.out.println("Starting");
         MonthIterator monthIterator=new MonthIterator();
 
-        monthIterator.monthIterate(months,bool);
+        ArrayList<Object> list= monthIterator.monthIterate(months,bool);
 
-        bool= TrainingView.getValidBool("Press 1 if you would like to get status");
+        bool= TrainingView.getValidBool("Press 1 if you would like to get status, 0 otherwise");
         if (bool){
-            ViewStatus.viewFinalStatus();
+            ViewStatus.viewFinalStatus(list);
         }
-
-
     }
 }
