@@ -29,22 +29,22 @@ public class TrainingView {
         }
     }
 
-    public static int getMonths(String message) throws IllegalArgumentException{
+    public static int getMonths(String message) {
         System.out.println(message);
         while (true) {
             try {
                 int userInp = scn.nextInt();
-                if (userInp > 2 && userInp < 5000){
+                if (userInp >2 && userInp < 5000){
                     logger.log(Level.TRACE, String.format("User decided that %s months will be simulated", userInp));
                     return userInp;
                 }
-                else System.out.println("Enter a number bigger than 1");
+                else System.out.println("Enter a number bigger than 2, less than 5000");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                throw new IllegalArgumentException();
+                logger.info(e);
+                System.out.println("Please enter an integer");
+                scn.nextLine();
             }
         }
     }
-
 }
 

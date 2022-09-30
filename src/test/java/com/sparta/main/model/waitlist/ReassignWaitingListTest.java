@@ -2,6 +2,7 @@ package com.sparta.main.model.waitlist;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
+import com.sparta.main.model.util.MonthTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,10 +15,13 @@ public class ReassignWaitingListTest {
 
     public ReassignWaitingList testWaitingList;
 
+    public MonthTime monthTime;
+
     @BeforeEach
     public void setup() {
-        testTrainee1 = new Trainee();
-        testTrainee2 = new Trainee();
+        monthTime = MonthTime.getInstance();
+        testTrainee1 = new Trainee(monthTime);
+        testTrainee2 = new Trainee(monthTime);
         testWaitingList = ReassignWaitingList.getInstance();
     }
 
