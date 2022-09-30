@@ -8,6 +8,7 @@ import com.sparta.main.model.util.MonthTime;
 import com.sparta.main.model.waitlist.*;
 
 import java.time.Month;
+import java.util.List;
 import java.util.Random;
 
 public class MonthIterator {
@@ -46,7 +47,7 @@ public class MonthIterator {
     private void addTrainees(){
         int extraTrainees = rand.nextInt(51);
         for (int j = 0; j < extraTrainees + 50; j++) {
-            newTraineeWaitingList.addTrainee(new Trainee());
+            newTraineeWaitingList.addNewTrainee(new Trainee( monthTime));
         }
     }
 
@@ -72,7 +73,7 @@ public class MonthIterator {
                 for (Trainee trainee : newTraineeWaitingList.getNewTraineeWaitingList()) {
                     if (trainingCentre.canAdd(trainee)){
                         if (centreHolder.assignTrainee(trainee) != null) {
-                            newTraineeWaitingList.getFirstInQueue();
+                            newTraineeWaitingList.removeNewTrainee(trainee);
                         };
                         counter++;
                     }
@@ -83,7 +84,7 @@ public class MonthIterator {
 
 
     private void assignFromBench(){
-        if (monthTime.getTime() > 11 && clientHolder.getClients().size() > 0) {
+        if (monthTime.getTime() >= 12 && clientHolder.getClients().size() > 0) {
             for (Trainee trainee : benchWaitingList.getBenchWaitingList()) {
                 for (Client client : clientHolder.getClients()) {
                     if (client.canAdd(trainee)) {
@@ -109,11 +110,13 @@ public class MonthIterator {
             addClients();
             addTrainees();
             assignTrainees();
-            centreHolder.closeCentre();//finish this
+
+            List<Trainee> reassignTrainees=centreHolder.closeCentres();
+            for (Trainee trainee:reassignTrainees){
+                reassignWaitingList.addReassignTrainee(trainee);
+            }
             assignFromBench();
 
-
-            // Add trainees to clients from bench
 
 
             monthTime.incrementMonth();
