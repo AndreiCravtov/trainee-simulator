@@ -6,7 +6,7 @@ import com.sparta.main.model.Trainee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReassignWaitingList extends PostTraining {
+public class ReassignWaitingList extends WaitingList {
 
     private List<Trainee> reassignWaitingList;
     private static ReassignWaitingList reassignWaitingListInstance;
