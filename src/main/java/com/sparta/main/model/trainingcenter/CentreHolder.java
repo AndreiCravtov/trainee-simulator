@@ -49,23 +49,18 @@ public class CentreHolder {
 
     /**
      * Returns a list of trainees which are ready for bench
-     * @return a {@code List} of {@code Trainee}s, if there are any ready for the bench <br>
-     * or {@code null} if no {@code Trainee}s are ready for bench
+     * @return a {@code List} of {@code Trainee}s
      */
     public List<Trainee> getBenchReadyTrainees() {
         List<Trainee> readyForBench = new ArrayList<>();
-        for (TrainingCentre centre: centres) {
-            List<Trainee> centreReady = centre.getBenchReadyTrainees();
-            if (centreReady != null) readyForBench.addAll(centreReady);
-        }
-        if (readyForBench.size() > 0) return readyForBench;
-        return null;
+        for (TrainingCentre centre: centres)
+            readyForBench.addAll(centre.getBenchReadyTrainees());
+        return readyForBench;
     }
 
     /**
      * Closes any centres that need to be closed
-     * @return a list of trainees that have been displaced, if there are any <br>
-     * {@code null} if there aren't any displaced trainees
+     * @return a list of trainees that have been displaced
      */
     public List<Trainee> closeCentres() {
         List<Trainee> removed = new ArrayList<>();
@@ -83,7 +78,6 @@ public class CentreHolder {
         for (Trainee trainee: removed)
             if (assignTrainee(trainee) != null)
                 displaced.add(trainee);
-        if (displaced.size() > 0) return displaced;
-        return null;
+        return displaced;
     }
 }
