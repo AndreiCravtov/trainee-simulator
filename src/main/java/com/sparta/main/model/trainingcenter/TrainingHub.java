@@ -4,9 +4,10 @@ import com.sparta.main.model.util.Timeable;
 import com.sparta.main.model.Trainee;
 
 public class TrainingHub extends TrainingCentre {
-    public TrainingHub(Timeable timeable) {
-        super(timeable);
-    }
+    public TrainingHub(Timeable timeable) { super(timeable); }
+
+    @Override
+    public boolean isFull() { return trainees.size() >= 100; }
 
     @Override
     public boolean canBeClosed() {

@@ -14,6 +14,9 @@ public class TechCentre extends TrainingCentre {
     }
 
     @Override
+    public boolean isFull() { return trainees.size() >= 200; }
+
+    @Override
     public boolean canBeClosed() {
         return !timekeeper.inGlobalGracePeriod() &&
                 (timekeeper.getTime() - timeCreated) > LOCAL_GRACE_PERIOD &&
@@ -24,7 +27,7 @@ public class TechCentre extends TrainingCentre {
     public boolean canAdd(Trainee trainee) {
         return trainee != null &&
                 course == trainee.getCourse() &&
-                trainees.size() < 200 &&
+                !isFull() &&
                 !trainees.contains(trainee);
     }
 
