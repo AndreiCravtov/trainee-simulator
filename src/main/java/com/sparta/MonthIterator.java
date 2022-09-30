@@ -6,6 +6,7 @@ import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.*;
 import com.sparta.main.model.util.MonthTime;
 import com.sparta.main.model.waitlist.*;
+import com.sparta.main.view.ViewStatus;
 
 import java.time.Month;
 import java.util.List;
@@ -94,7 +95,7 @@ public class MonthIterator {
             }
         }
     }
-    public  void monthIterate(int months) {
+    public  void monthIterate(int months, boolean bool) {
 
         List<Trainee> benchTrainees = centreHolder.getBenchReadyTrainees();
         for (Trainee trainee: benchTrainees){
@@ -117,6 +118,7 @@ public class MonthIterator {
             }
             assignFromBench();
 
+            if (bool) ViewStatus.viewStatus();
 
             monthTime.incrementMonth();
         }
