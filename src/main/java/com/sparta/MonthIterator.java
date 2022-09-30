@@ -96,10 +96,10 @@ public class MonthIterator {
     }
     public  void monthIterate(int months) {
 
-
-
-
-        int extraTrainees;
+        List<Trainee> benchTrainees = centreHolder.getBenchReadyTrainees();
+        for (Trainee trainee: benchTrainees){
+            benchWaitingList.addBenchTrainee(trainee);
+        }
 
 
         while(monthTime.getTime() < months){
@@ -116,7 +116,6 @@ public class MonthIterator {
                 reassignWaitingList.addReassignTrainee(trainee);
             }
             assignFromBench();
-
 
 
             monthTime.incrementMonth();
