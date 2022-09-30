@@ -21,6 +21,8 @@ public abstract class TrainingCentre implements Comparable<TrainingCentre>{
 
     public List<Trainee> getTrainees() { return trainees; }
 
+    public int getNumTrainees() { return trainees.size(); }
+
     public TrainingCentre(Timeable timekeeper) {
         this.timekeeper = timekeeper;
         id = idCount++;
@@ -41,6 +43,8 @@ public abstract class TrainingCentre implements Comparable<TrainingCentre>{
             }
         return readyForBench;
     }
+
+    public abstract boolean isFull();
 
     public abstract boolean canBeClosed();
 

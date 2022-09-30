@@ -6,9 +6,10 @@ import com.sparta.main.model.util.Timeable;
 public class Bootcamp extends TrainingCentre {
     private int closedCounter = 0;
 
-    public Bootcamp(Timeable timekeeper) {
-        super(timekeeper);
-    }
+    public Bootcamp(Timeable timekeeper) { super(timekeeper); }
+
+    @Override
+    public boolean isFull() { return trainees.size() >= 500; }
 
     @Override
     public boolean canBeClosed() {
@@ -28,7 +29,7 @@ public class Bootcamp extends TrainingCentre {
     @Override
     public boolean canAdd(Trainee trainee) {
         return trainee != null &&
-                trainees.size() < 500 &&
+                !isFull() &&
                 !trainees.contains(trainee);
     }
 
