@@ -94,10 +94,7 @@ public class MonthIterator {
             }
         }
     }
-    public  void monthIterate(int months) {
-
-
-
+    public void monthIterate(int months) {
 
         int extraTrainees;
 
