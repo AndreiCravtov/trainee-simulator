@@ -11,9 +11,8 @@ import java.util.ArrayList;
 
 public class ViewStatus {
     public static void viewStatus(){
-        if (TrainingView.getValidBool("Would you like to print the status?")){
-            System.out.printf("Centres in use: %s%n", CentreHolder.getInstance().getCentres());
-        }
+            System.out.printf("Centres in use: "+ CentreHolder.getInstance().getCentres().size() +"\n");
+
     }
 
 
@@ -102,8 +101,4 @@ public class ViewStatus {
 
 
     }
-
-
-
-
 }
