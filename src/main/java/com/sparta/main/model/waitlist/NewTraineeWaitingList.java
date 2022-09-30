@@ -6,7 +6,7 @@ import com.sparta.main.model.Trainee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewTraineeWaitingList extends PostTraining {
+public class NewTraineeWaitingList extends WaitingList {
 
     private List<Trainee> newTraineeWaitingList;
     private static NewTraineeWaitingList newTraineeListInstance;
