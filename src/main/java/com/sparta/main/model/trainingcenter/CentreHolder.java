@@ -38,7 +38,7 @@ public class CentreHolder {
      * @param centreType the type of closed centre
      * @return the number of closed centres of that type
      */
-    public int getNumClosedCentres(Class<? extends TrainingCentre> centreType) { return openCentres.get(centreType); }
+    public int getNumClosedCentres(Class<? extends TrainingCentre> centreType) { return closedCentres.get(centreType); }
 
     /**
      * Gets the number of full open centres of a given type
