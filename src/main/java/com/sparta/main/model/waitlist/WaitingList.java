@@ -5,7 +5,7 @@ import com.sparta.main.model.Trainee;
 
 import java.util.List;
 
-public abstract class PostTraining {
+public abstract class WaitingList {
 
     public boolean addTrainee(List<Trainee> list, Trainee trainee) {
         return list.add(trainee);

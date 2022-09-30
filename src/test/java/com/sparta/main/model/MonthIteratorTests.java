@@ -15,6 +15,7 @@ public class MonthIteratorTests {
     public CentreHolder centreHolder;
     public ReassignWaitingList reassignWaitingList;
     public NewTraineeWaitingList newTraineeWaitingList;
+    public MonthIterator monthIterator;
 
     @BeforeEach
     public void setup() {
@@ -27,11 +28,11 @@ public class MonthIteratorTests {
     public void monthIterate_6() {
         int startCentres = centreHolder.getCentres().size();
         int startReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int startNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
-        MonthIterator.monthIterate(6);
+        int startNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
+        monthIterator.monthIterate(6);
         int endCentres = centreHolder.getCentres().size();
         int endReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int endNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
+        int endNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
         Assertions.assertTrue(endCentres > startCentres);
         Assertions.assertTrue(endReassignSize == startReassignSize);
         Assertions.assertTrue(endNewTraineeSize > startNewTraineeSize);
@@ -41,11 +42,11 @@ public class MonthIteratorTests {
     public void monthIterate_12() {
         int startCentres = centreHolder.getCentres().size();
         int startReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int startNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
-        MonthIterator.monthIterate(12);
+        int startNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
+        monthIterator.monthIterate(12);
         int endCentres = centreHolder.getCentres().size();
         int endReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int endNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
+        int endNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
         Assertions.assertTrue(endCentres > startCentres);
         Assertions.assertTrue(endReassignSize == startReassignSize);
         Assertions.assertTrue(endNewTraineeSize > startNewTraineeSize);
@@ -55,11 +56,11 @@ public class MonthIteratorTests {
     public void monthIterate_24() {
         int startCentres = centreHolder.getCentres().size();
         int startReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int startNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
-        MonthIterator.monthIterate(24);
+        int startNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
+        monthIterator.monthIterate(24);
         int endCentres = centreHolder.getCentres().size();
         int endReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int endNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
+        int endNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
         Assertions.assertTrue(endCentres > startCentres);
         Assertions.assertTrue(endReassignSize == startReassignSize);
         Assertions.assertTrue(endNewTraineeSize > startNewTraineeSize);
@@ -69,11 +70,11 @@ public class MonthIteratorTests {
     public void monthIterate_100() {
         int startCentres = centreHolder.getCentres().size();
         int startReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int startNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
-        MonthIterator.monthIterate(100);
+        int startNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
+        monthIterator.monthIterate(100);
         int endCentres = centreHolder.getCentres().size();
         int endReassignSize = reassignWaitingList.sizeOfReassignWaitingList();
-        int endNewTraineeSize = newTraineeWaitingList.sizeOfWaitingList();
+        int endNewTraineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
         Assertions.assertTrue(endCentres > startCentres);
         Assertions.assertTrue(endReassignSize == startReassignSize);
         Assertions.assertTrue(endNewTraineeSize > startNewTraineeSize);
@@ -85,9 +86,9 @@ public class MonthIteratorTests {
         for (int i = 0; i < reassignSize; i++) {
             reassignWaitingList.getReassignWaitingList().remove(0);
         }
-        int traineeSize = newTraineeWaitingList.sizeOfWaitingList();
+        int traineeSize = newTraineeWaitingList.sizeOfNewTraineeWaitingList();
         for (int i = 0; i < traineeSize; i++) {
-            newTraineeWaitingList.getFirstInQueue();
+            newTraineeWaitingList.getFirstNewTrainee();
         }
         int centreSize = centreHolder.getCentres().size();
         for (int i = 0; i < centreSize; i++) {
