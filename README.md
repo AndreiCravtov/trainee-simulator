@@ -699,12 +699,12 @@ package com.sparta.main.model.waitlist.posttraining;
 
 import com.sparta.main.model.Course;
 import com.sparta.main.model.Trainee;
-import com.sparta.main.model.waitlist.PostTraining;
+import com.sparta.main.model.waitlist.WaitingList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReassignWaitingList extends PostTraining {
+public class ReassignWaitingList extends WaitingList {
 
     private List<Trainee> reassignWaitingList;
     private static ReassignWaitingList reassignWaitingListInstance;
