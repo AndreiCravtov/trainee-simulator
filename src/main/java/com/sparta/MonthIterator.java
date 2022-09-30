@@ -103,7 +103,7 @@ public class MonthIterator {
 
 
         while(monthTime.getTime() < months){
-            System.out.println("Loop: " + monthTime.getTime());
+            //System.out.println("Loop: " + monthTime.getTime());
             int month=monthTime.getTime();
 
             addCentre();

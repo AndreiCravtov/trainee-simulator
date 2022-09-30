@@ -10,6 +10,8 @@ public class Starter {
 
         MonthIterator monthIterator=new MonthIterator();
 
-        monthIterator.monthIterate(24);
+        monthIterator.monthIterate(months);
+
+
     }
 }

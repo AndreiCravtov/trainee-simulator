@@ -20,7 +20,7 @@ public class TrainingView {
                 int i = scn.nextInt();
                 if (i == 0 || i == 1) {
                     if (i == 0) return false;
-                    else return false;
+                    else return true;
                 } else System.out.println("Enter 0 or 1");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
