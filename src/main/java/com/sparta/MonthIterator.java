@@ -6,8 +6,10 @@ import com.sparta.main.model.client.ClientHolder;
 import com.sparta.main.model.trainingcenter.*;
 import com.sparta.main.model.util.MonthTime;
 import com.sparta.main.model.waitlist.*;
+import com.sparta.main.view.ViewStatus;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -94,7 +96,9 @@ public class MonthIterator {
             }
         }
     }
-    public  void monthIterate(int months) {
+    public  ArrayList<Object> monthIterate(int months, boolean bool) {
+
+        ArrayList<Object> outList=new ArrayList<>();
 
         List<Trainee> benchTrainees = centreHolder.getBenchReadyTrainees();
         for (Trainee trainee: benchTrainees){
@@ -117,10 +121,22 @@ public class MonthIterator {
             }
             assignFromBench();
 
+            if (bool) ViewStatus.viewStatus();
 
             monthTime.incrementMonth();
         }
         System.out.println("Finished");
+
+        //populating outList
+        {
+            outList.add(centreHolder);
+            outList.add(clientHolder);
+            outList.add(reassignWaitingList);
+            outList.add(newTraineeWaitingList);
+            outList.add(benchWaitingList);
+        }
+
+        return outList;
     }
 
 }
